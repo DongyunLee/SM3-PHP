@@ -1,0 +1,18 @@
+{
+  "name": "ch4o5/sm3-php",
+  "description": "国密sm3加密方式的PHP实现",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "DongyunLee",
+      "email": "dongyunli619@gmail.com"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "files": [
+      "extends.php"
+    ]
+  }
+}
