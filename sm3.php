@@ -21,8 +21,8 @@ function CF($V, $Bi)
 {
     // 消息扩展
     $wordLength = 32;
-    $W = [];
-    $M = [];// W'
+    $W = array();
+    $M = array();// W'
     
     // 将消息分组B划分为16个字W0， W1，…… ，W15 （字为长度为32的比特串）
     for ($i = 0; $i < 16; $i++) {
@@ -34,21 +34,23 @@ function CF($V, $Bi)
     
     // W[j] <- P1(W[j−16] bin_xor W[j−9] bin_xor (W[j−3] <<< 15)) bin_xor (W[j−13] <<< 7) bin_xor W[j−6]
     for ($j = 16; $j < 68; $j++) {
+        $cal_result = calMulti('bin_xor');
+        
         array_push(
             $W,
-            calMulti('bin_xor')(
+            $cal_result(array(
                 P1(
-                    calMulti('bin_xor')(
+                    $cal_result(array(
                         $W[$j - 16],
                         $W[$j - 9],
                         rol(
                             $W[$j - 3], 15
                         )
-                    )
+                    ))
                 ),
                 rol($W[$j - 13], 7),
                 $W[$j - 6]
-            )
+            ))
         );
     }
     
@@ -58,7 +60,7 @@ function CF($V, $Bi)
     }
     
     // 压缩
-    $wordRegister = [];// 字寄存器
+    $wordRegister = array();// 字寄存器
     for ($j = 0; $j < 8; $j++) {
         array_push($wordRegister, substr($V, $j * $wordLength, $wordLength));
     }
@@ -74,11 +76,18 @@ function CF($V, $Bi)
     
     // 中间变量
     for ($j = 0; $j < 64; $j++) {
-        $SS1 = rol(calMulti('bin_add')(rol($A, 12), $E, rol(T($j), $j)), 7);
+        $cal_results = calMulti('bin_add');
+        $SS1 = rol($cal_results(array(
+            rol($A, 12), $E, rol(T($j), $j)
+        )), 7);
         $SS2 = bin_xor($SS1, rol($A, 12));
         
-        $TT1 = calMulti('bin_add')(FF($A, $B, $C, $j), $D, $SS2, $M[$j]);
-        $TT2 = calMulti('bin_add')(GG($E, $F, $G, $j), $H, $SS1, $W[$j]);
+        $TT1 = $cal_results(array(
+            FF($A, $B, $C, $j), $D, $SS2, $M[$j]
+        ));
+        $TT2 = $cal_results(array(
+            GG($E, $F, $G, $j), $H, $SS1, $W[$j]
+        ));
         
         $D = $C;
         $C = rol($B, 9);
@@ -90,7 +99,7 @@ function CF($V, $Bi)
         $E = P0($TT2);
     }
     
-    return bin_xor(join('', [$A, $B, $C, $D, $E, $F, $G, $H]), $V);
+    return bin_xor(join('', array($A, $B, $C, $D, $E, $F, $G, $H)), $V);
 }
 
 /**
@@ -112,15 +121,17 @@ function sm3($str)
     
     $left_pad_empty = leftPad('', $k);
     $left_pad_str = leftPad(decbin($len), 64);
-    $m = "{$binary}1{$left_pad_empty}${$left_pad_str}";// k个0
-    
+    $m = "{$binary}1{$left_pad_empty}{$left_pad_str}";// k个0
+  
     // 迭代压缩
     $n = ($len + $k + 65) / 512;
     
-    $V = hex2bin('7380166f4914b2b9172442d7da8a0600a96f30bc163138aae38dee4db0fb0e4e');
+    $V = base_convert('7380166f4914b2b9172442d7da8a0600a96f30bc163138aae38dee4db0fb0e4e', 16, 2);
     for ($i = 0; $i <= $n - 1; $i++) {
         $B = substr($m, 512 * $i, 512);
+        var_dump($V);
         $V = CF($V, $B);
     }
+    
     return base_convert($V, 2, 16);
 }

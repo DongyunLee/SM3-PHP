@@ -17,16 +17,14 @@
  */
 function str2binary($str)
 {
-    //1.列出每个字符
     $arr = preg_split('/(?<!^)(?!$)/u', $str);
-    //2.unpack字符
     foreach ($arr as &$v) {
         $temp = unpack('H*', $v);
         $v = base_convert($temp[1], 16, 2);
+        while ($v < 8) $v = '0' . $v;
         unset($temp);
     }
-    
-    return join(' ', $arr);
+    return join('', $arr);
 }
 
 /**
@@ -81,7 +79,10 @@ function calMulti($method)
  */
 function rol($str, $n)
 {
-    return substr($str, $n % strlen($str)) . substr($str, 0, $n % strlen($str));
+    if (empty($str)) return '';
+    $str1 = substr($str, $n % strlen($str));
+    $str2 = substr($str, 0, $n % strlen($str));
+    return $str1 . $str2;
 }
 
 /**
@@ -97,8 +98,8 @@ function binaryCal($x, $y, $method)
 {
     $a = $x || '';
     $b = $y || '';
-    $result = [];
-    $prevResult = [];
+    $result = array();
+    $prevResult = array();
     // for ($i = 0; $i < strlen($a); $i ++) { // 小端
     for ($i = strlen($a) - 1; $i >= 0; $i--) { // 大端
         $prevResult = $method($a[$i], $b[$i], $prevResult);
@@ -119,9 +120,9 @@ function binaryCal($x, $y, $method)
 function bin_xor($x, $y)
 {
     return binaryCal($x, $y, function ($a, $b) {
-        return [
-            ($a === $b ? '0' : '1')
-        ];
+        return array(
+            $a === $b ? '0' : '1'
+        );
     });
 }
 
@@ -135,7 +136,8 @@ function bin_xor($x, $y)
  */
 function P1($X)
 {
-    return calMulti('bin_xor')($X, rol($X, 15), rol($X, 23));
+    $multi_bin_xor = calMulti('bin_xor');
+    return $multi_bin_xor(array($X, rol($X, 15), rol($X, 23)));
 }
 
 /**
@@ -150,9 +152,9 @@ function bin_add($x, $y)
 {
     $result = binaryCal($x, $y, function ($a, $b, $prevResult) {
         $carry = $prevResult ? $prevResult[1] : '0' || '0';
-        if ($a !== $b) return [$carry === '0' ? '1' : '0', $carry];// a,b不等时,carry不变，结果与carry相反
+        if ($a !== $b) return array($carry === '0' ? '1' : '0', $carry);// a,b不等时,carry不变，结果与carry相反
         // a,b相等时，结果等于原carry，新carry等于a
-        return [$carry, $a];
+        return array($carry, $a);
     });
     // console.log('x: ' + x + '\ny: ' + y + '\n=  ' + result + '\n');
     return $result;
@@ -185,9 +187,9 @@ function bin_or($x, $y)
     return binaryCal(
         $x, $y,
         function ($a, $b) {
-            return [
-                ($a === '1' || $b === '1' ? '1' : '0')
-            ];
+            return array(
+                $a === '1' || $b === '1' ? '1' : '0'
+            );
         }
     );// a === '0' && b === '0' ? '0' : '1'
 }
@@ -203,7 +205,7 @@ function bin_or($x, $y)
 function bin_and($x, $y)
 {
     return binaryCal($x, $y, function ($a, $b) {
-        return [($a === '1' && $b === '1' ? '1' : '0')];
+        return array($a === '1' && $b === '1' ? '1' : '0');
     });
 }
 
@@ -217,7 +219,7 @@ function bin_and($x, $y)
 function bin_not($x)
 {
     return binaryCal($x, null, function ($a) {
-        return [$a === '1' ? '0' : '1'];
+        return array($a === '1' ? '0' : '1');
     });
 }
 
@@ -233,9 +235,11 @@ function bin_not($x)
  */
 function FF($X, $Y, $Z, $j)
 {
+    $multi_bin_xor = calMulti('bin_xor');
+    $multi_bin_or = calMulti('bin_or');
     return $j >= 0 && $j <= 15
-        ? calMulti('bin_xor')($X, $Y, $Z)
-        : calMulti('bin_or')(bin_and($X, $Y), bin_and($X, $Z), bin_and($Y, $Z));
+        ? $multi_bin_xor(array($X, $Y, $Z))
+        : $multi_bin_or(array(bin_and($X, $Y), bin_and($X, $Z), bin_and($Y, $Z)));
 }
 
 /**
@@ -250,8 +254,9 @@ function FF($X, $Y, $Z, $j)
  */
 function GG($X, $Y, $Z, $j)
 {
+    $multi_bin_xor = calMulti('bin_xor');
     return $j >= 0 && $j <= 15
-        ? calMulti('bin_xor')($X, $Y, $Z)
+        ? $multi_bin_xor(array($X, $Y, $Z))
         : bin_or(bin_add($X, $Y), bin_and(bin_not($X), $Z));
 }
 
@@ -265,7 +270,8 @@ function GG($X, $Y, $Z, $j)
  */
 function P0($X)
 {
-    return calMulti('bin_xor')(
+    $multi_bin_xor = calMulti('bin_xor');
+    return $multi_bin_xor(array(
         $X, rol($X, 9), rol($X, 17)
-    );
+    ));
 }
