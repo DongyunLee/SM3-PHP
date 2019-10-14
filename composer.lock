@@ -1,0 +1,84 @@
+{
+  "_readme": [
+    "This file locks the dependencies of your project to a known state",
+    "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+    "This file is @generated automatically"
+  ],
+  "content-hash": "b890a0b1d06d6538fdd85a16783c1713",
+  "packages": [
+    {
+      "name": "filp/whoops",
+      "version": "1.1.10",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/filp/whoops.git",
+        "reference": "72538eeb70bbfb11964412a3d098d109efd012f7"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/filp/whoops/zipball/72538eeb70bbfb11964412a3d098d109efd012f7",
+        "reference": "72538eeb70bbfb11964412a3d098d109efd012f7",
+        "shasum": "",
+        "mirrors": [
+          {
+            "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+            "preferred": true
+          }
+        ]
+      },
+      "require": {
+        "php": ">=5.3.0"
+      },
+      "require-dev": {
+        "mockery/mockery": "0.9.*"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "1.2-dev"
+        }
+      },
+      "autoload": {
+        "psr-0": {
+          "Whoops": "src/"
+        },
+        "classmap": [
+          "src/deprecated"
+        ]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Filipe Dobreira",
+          "homepage": "https://github.com/filp",
+          "role": "Developer"
+        }
+      ],
+      "description": "php error handling for cool kids",
+      "homepage": "https://github.com/filp/whoops",
+      "keywords": [
+        "error",
+        "exception",
+        "handling",
+        "library",
+        "silex-provider",
+        "whoops",
+        "zf2"
+      ],
+      "time": "2015-06-29T05:42:04+00:00"
+    }
+  ],
+  "packages-dev": [],
+  "aliases": [],
+  "minimum-stability": "stable",
+  "stability-flags": [],
+  "prefer-stable": false,
+  "prefer-lowest": false,
+  "platform": {
+    "php": ">=5.3"
+  },
+  "platform-dev": []
+}

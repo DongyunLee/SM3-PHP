@@ -10,4 +10,5 @@
 
 require 'vendor/autoload.php';
 
-echo sm3('ch4o5');
+$sm3 = new SM3\SM3('ch4o5');
+echo $sm3;

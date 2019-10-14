@@ -9,10 +9,13 @@
       "email": "dongyunli619@gmail.com"
     }
   ],
-  "require": {},
+  "require": {
+    "php": ">=5.3",
+    "filp/whoops": "~1.1.10"
+  },
   "autoload": {
-    "files": [
-      "extends.php"
-    ]
+    "psr-4": {
+      "SM3\\": "src/"
+    }
   }
 }
