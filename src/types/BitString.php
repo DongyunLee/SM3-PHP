@@ -28,6 +28,7 @@ class BitString
      */
     public function __construct($string)
     {
+        $string = strtr($string, array(' ' => ''));
         $this->bit_string = $this->is_bit_string($string)
             ? $string
             : $this->str2bin(strval($string));
@@ -72,7 +73,7 @@ class BitString
         foreach ($arr as &$v) {
             $temp = unpack('H*', $v);
             $v = base_convert($temp[1], 16, 2);
-            while ($v < 8) $v = '0' . $v;
+            while (strlen($v) < 8) $v = '0' . $v;
             unset($temp);
         }
         return join('', $arr);

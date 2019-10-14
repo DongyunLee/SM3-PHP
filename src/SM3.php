@@ -61,22 +61,23 @@ class SM3
      */
     private function sm3()
     {
-        /** @var string $bit_string 转化后的消息（二进制码） */
+        /** @var string $m 转化后的消息（二进制码） */
         $m = new BitString($this->message);
         
         
         // 一、填充
-        $l = strlen($bit_string);
+        $l = strlen($m);
         
         /** @var int $k 满足l + 1 + k ≡ 448mod512 的最小的非负整数 */
         $k = $l % 512;
         $k = $k + 64 >= 512
             ? 512 - ($k % 448) - 1
             : 512 - 64 - $k - 1;
-        
+    
+        $bin_l = new BitString($l);
         /** @var BitString $m_fill 填充后的消息 */
         $m_fill = new types\BitString(
-            str_pad($m . '1', $k, '0') . substr((new BitString($l)), 0, 64)
+            $m . '1' . str_pad('', $k, '0') . (strlen($bin_l) >= 64 ? substr($bin_l, 0, 64) : str_pad($bin_l, 64, '0'))
         );
         if (strlen($m_fill) !== 512)
             return false;
@@ -95,9 +96,10 @@ class SM3
         }
         
         // 消息扩展
-        
-        
-        return '';
+    
+        var_dump($V);
+        die;
+        // return '';
     }
     
     /**
@@ -108,10 +110,9 @@ class SM3
      */
     public function __toString()
     {
-        if (!is_string($this->hash_value) || strlen($this->hash_value) !== 256)
-            throw new Exception('算法加密失败', 90002);
-        
-        return $this->hash_value;
+        return (!is_string($this->hash_value) || strlen($this->hash_value) !== 256)
+            ? ''
+            : $this->hash_value;
     }
     
 }

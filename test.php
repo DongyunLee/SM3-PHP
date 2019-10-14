@@ -7,8 +7,9 @@
  * Powered by PhpStorm
  */
 
+use SM3\SM3;
 
 require 'vendor/autoload.php';
 
-$sm3 = new SM3\SM3('ch4o5');
+$sm3 = new SM3('abc');
 echo $sm3;
