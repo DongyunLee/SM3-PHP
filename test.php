@@ -7,6 +7,7 @@
  * Powered by PhpStorm
  */
 
-require_once 'sm3.php';
+
+require 'vendor/autoload.php';
 
 echo sm3('ch4o5');

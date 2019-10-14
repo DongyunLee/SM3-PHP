@@ -129,7 +129,6 @@ function sm3($str)
     $V = base_convert('7380166f4914b2b9172442d7da8a0600a96f30bc163138aae38dee4db0fb0e4e', 16, 2);
     for ($i = 0; $i <= $n - 1; $i++) {
         $B = substr($m, 512 * $i, 512);
-        var_dump($V);
         $V = CF($V, $B);
     }
     
