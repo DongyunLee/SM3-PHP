@@ -77,20 +77,4 @@ abstract class JHandler
      * @return mixed
      */
     abstract public function GG($X, $Y, $Z);
-    
-    /**
-     * 压缩函数中的置换函数
-     */
-    public function P0()
-    {
-        
-    }
-    
-    /**
-     * 扩展函数中的置换函数
-     */
-    public function P1()
-    {
-    
-    }
 }
