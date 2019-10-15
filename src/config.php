@@ -7,6 +7,8 @@
  * Powered by PhpStorm
  */
 
-$config = array(
+namespace SM3;
+
+return array(
     'DEBUG' => true
 );

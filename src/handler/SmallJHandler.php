@@ -23,6 +23,8 @@ class SmallJHandler extends JHandler
     const SMALLEST_J = 0;
     /** @var int j的最小可用值 */
     const BIGGEST_J = 15;
+    /** @var string T常量 */
+    const T = '79cc4519';
     
     /**
      * 补充父类
@@ -30,7 +32,7 @@ class SmallJHandler extends JHandler
      */
     public function __construct()
     {
-        parent::__construct('79cc4519', self::SMALLEST_J, self::BIGGEST_J);
+        parent::__construct(self::T, self::SMALLEST_J, self::BIGGEST_J);
     }
     
     /**
