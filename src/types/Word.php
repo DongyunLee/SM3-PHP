@@ -9,6 +9,8 @@
 
 namespace SM3\types;
 
+use ArrayAccess;
+
 /**
  * 字类型
  * 长度32的比特串
@@ -16,12 +18,12 @@ namespace SM3\types;
  *
  * @package SM3\types\
  */
-class Word extends BitString
+class Word extends BitString implements ArrayAccess
 {
     /** @var int 设置长度为32 */
     const length = 32;
     /** @var string */
-    private $string = '';
+    private $word = '';
     
     /**
      * Word constructor.
@@ -32,9 +34,27 @@ class Word extends BitString
     {
         parent::__construct($string);
         
-        if (strlen($string) !== self::length) return new BitString($string);
-        $this->string = $string;
-        
-        return $this;
+        if (strlen($this->bit_string) !== self::length) {
+            if (strlen($this->bit_string) <= self::length) {
+                $diff = self::length - strlen($this->bit_string);
+                $this->bit_string = str_pad('', $diff, '0') . $this->bit_string;
+            }
+        }
+        $this->word = $this->bit_string;
+    }
+    
+    public function __toString()
+    {
+        return $this->word;
+    }
+    
+    public function offsetGet($offset)
+    {
+        return $this->word[$offset];
+    }
+    
+    public function getString()
+    {
+        return $this->word;
     }
 }

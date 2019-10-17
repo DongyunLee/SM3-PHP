@@ -9,7 +9,9 @@
 
 namespace SM3;
 
+use ArrayAccess;
 use Exception;
+use SM3\handler\ExtendedCompression;
 use SM3\types\BitString;
 
 /**
@@ -19,14 +21,10 @@ use SM3\types\BitString;
  * @package    SM3
  * @error_code 90xxx
  */
-class SM3
+class SM3 implements ArrayAccess
 {
     /** @var string 初始值常数 */
     const IV = '7380166f4914b2b9172442d7da8a0600a96f30bc163138aae38dee4db0fb0e4e';
-    
-    // Tj常量
-    const T_short = '79cc4519';
-    const T_long = '7a879d8a';
     
     /** @var string 消息(加密前的结果) */
     private $message = '';
@@ -49,9 +47,7 @@ class SM3
         /** @var string message 消息 */
         $this->message = $message;
         /** @var string hash_value  杂凑值 */
-        $this->hash_value = is_string($this->sm3())
-            ? $this->sm3()
-            : '';
+        $this->hash_value = $this->sm3();
     }
     
     /**
@@ -73,11 +69,18 @@ class SM3
         $k = $k + 64 >= 512
             ? 512 - ($k % 448) - 1
             : 512 - 64 - $k - 1;
-    
+        
         $bin_l = new BitString($l);
         /** @var BitString $m_fill 填充后的消息 */
         $m_fill = new types\BitString(
-            $m . '1' . str_pad('', $k, '0') . (strlen($bin_l) >= 64 ? substr($bin_l, 0, 64) : str_pad($bin_l, 64, '0'))
+            $m # 原始消息m
+            . '1' # 拼个1
+            . str_pad('', $k, '0') # 拼上k个比特的0
+            . (
+            strlen($bin_l) >= 64
+                ? substr($bin_l, 0, 64)
+                : str_pad($bin_l, 64, '0')
+            ) # 64比特，l的二进制表示
         );
         if (strlen($m_fill) !== 512)
             return false;
@@ -90,16 +93,18 @@ class SM3
         $n = ($l + $k + 65) / 512;
         if (count($B) !== $n) return false;
         
-        $V = array(new BitString(self::IV));
-        foreach ($B as $key => $value) {
-            $V[$key + 1] = CF($V[$key], $value);
+        $V = array(
+            new BitString(self::IV)
+        );
+        $extended = new ExtendedCompression();
+        foreach ($B as $key => $Bi) {
+            $V[$key + 1] = $extended->CV($V[$key], $Bi);
         }
         
-        // 消息扩展
-    
-        var_dump($V);
-        die;
-        // return '';
+        $binary = join('', $V);
+        $hex = base_convert($binary, 2, 16);
+        
+        return $hex;
     }
     
     /**
@@ -110,9 +115,81 @@ class SM3
      */
     public function __toString()
     {
-        return (!is_string($this->hash_value) || strlen($this->hash_value) !== 256)
-            ? ''
-            : $this->hash_value;
+        return $this->hash_value;
     }
     
+    /**
+     * Whether a offset exists
+     *
+     * @link  https://php.net/manual/en/arrayaccess.offsetexists.php
+     *
+     * @param mixed $offset <p>
+     *                      An offset to check for.
+     *                      </p>
+     *
+     * @return bool true on success or false on failure.
+     * </p>
+     * <p>
+     * The return value will be casted to boolean if non-boolean was returned.
+     * @since 5.0.0
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->hash_value[$offset]);
+    }
+    
+    /**
+     * Offset to retrieve
+     *
+     * @link  https://php.net/manual/en/arrayaccess.offsetget.php
+     *
+     * @param mixed $offset <p>
+     *                      The offset to retrieve.
+     *                      </p>
+     *
+     * @return mixed Can return all value types.
+     * @since 5.0.0
+     */
+    public function offsetGet($offset)
+    {
+        return $this->hash_value[$offset];
+    }
+    
+    /**
+     * Offset to set
+     *
+     * @link  https://php.net/manual/en/arrayaccess.offsetset.php
+     *
+     * @param mixed $offset <p>
+     *                      The offset to assign the value to.
+     *                      </p>
+     * @param mixed $value  <p>
+     *                      The value to set.
+     *                      </p>
+     *
+     * @return \SM3\SM3
+     * @since 5.0.0
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->hash_value[$offset] = $value;
+        return $this;
+    }
+    
+    /**
+     * Offset to unset
+     *
+     * @link  https://php.net/manual/en/arrayaccess.offsetunset.php
+     *
+     * @param mixed $offset <p>
+     *                      The offset to unset.
+     *                      </p>
+     *
+     * @return void
+     * @since 5.0.0
+     */
+    public function offsetUnset($offset)
+    {
+        unset($this->hash_value[$offset]);
+    }
 }

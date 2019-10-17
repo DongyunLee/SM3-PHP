@@ -9,6 +9,8 @@
 
 namespace SM3\handler;
 
+use SM3\types\Word;
+
 /**
  * j处理抽象类
  * Class JHandler
@@ -77,4 +79,14 @@ abstract class JHandler
      * @return mixed
      */
     abstract public function GG($X, $Y, $Z);
+    
+    /**
+     * 读取常量T
+     *
+     * @return \SM3\types\Word
+     */
+    public function getT()
+    {
+        return new Word($this->T);
+    }
 }
