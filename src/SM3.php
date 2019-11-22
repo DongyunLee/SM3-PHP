@@ -12,6 +12,7 @@ namespace SM3;
 use ArrayAccess;
 use Exception;
 use SM3\handler\ExtendedCompression;
+use SM3\libs\WordConversion;
 use SM3\types\BitString;
 
 /**
@@ -42,7 +43,7 @@ class SM3 implements ArrayAccess
     public function __construct($message)
     {
         // 输入验证
-        if (!is_string($message)) throw new Exception('参数类型有误，请检查后重新输入', 90001);
+        if (!is_string($message)) throw new Exception('参数类型必须为string，请检查后重新输入', 90001);
         
         /** @var string message 消息 */
         $this->message = $message;
@@ -59,7 +60,6 @@ class SM3 implements ArrayAccess
     {
         /** @var string $m 转化后的消息（二进制码） */
         $m = new BitString($this->message);
-        
         
         // 一、填充
         $l = strlen($m);
@@ -79,11 +79,9 @@ class SM3 implements ArrayAccess
             . (
             strlen($bin_l) >= 64
                 ? substr($bin_l, 0, 64)
-                : str_pad($bin_l, 64, '0')
+                : str_pad($bin_l, 64, '0', STR_PAD_LEFT)
             ) # 64比特，l的二进制表示
         );
-        if (strlen($m_fill) !== 512)
-            return false;
         
         
         // 二、迭代压缩
@@ -94,14 +92,16 @@ class SM3 implements ArrayAccess
         if (count($B) !== $n) return false;
         
         $V = array(
-            new BitString(self::IV)
+            WordConversion::hex2bin(self::IV),
         );
         $extended = new ExtendedCompression();
         foreach ($B as $key => $Bi) {
-            $V[$key + 1] = $extended->CV($V[$key], $Bi);
+            $V[$key + 1] = $extended->CF($V[$key], $Bi);
         }
-        
+    
+        // $binary = WordConversion::xorConversion($V);
         $binary = join('', $V);
+        assert($binary === '0100010010001011100001001001101111000110111101001101100110010010011000010011010111110101100010001000010000110011111010001100100101010001100101101101000010111110111000010110101110000000000011010110010100101001110001010001010000110110000000110110001110101110');
         $hex = base_convert($binary, 2, 16);
         
         return $hex;

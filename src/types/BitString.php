@@ -31,11 +31,13 @@ class BitString implements ArrayAccess
     public function __construct($string)
     {
         if (is_object($string)) $string = $string->getString();
-        
-        $string = strtr($string, array(' ' => ''));
+    
+        $string = is_int($string)
+            ? $string
+            : strtr($string, array(' ' => ''));
         $this->bit_string = $this->is_bit_string($string)
             ? $string
-            : $this->str2bin(strval($string));
+            : "{$this->str2bin($string)}";
     }
     
     /**
@@ -67,13 +69,15 @@ class BitString implements ArrayAccess
     /**
      * 字符串转比特串
      *
-     * @param $str string 普通字符串
+     * @param $str int|string 普通字符串
      *
      * @return string   转换为比特串
      */
     private function str2bin($str)
     {
-        if (!is_string($str)) return false;
+        if (!is_string($str) && !is_int($str)) return false;
+    
+        if (is_int($str)) return decbin($str);
         $arr = preg_split('/(?<!^)(?!$)/u', $str);
         foreach ($arr as &$v) {
             $temp = unpack('H*', $v);
@@ -89,6 +93,15 @@ class BitString implements ArrayAccess
         return $this->getString();
     }
     
+    /**
+     * 获取比特串的值
+     *
+     * @return string
+     */
+    public function getString()
+    {
+        return $this->bit_string;
+    }
     
     public function offsetGet($offset)
     {
@@ -151,15 +164,5 @@ class BitString implements ArrayAccess
     public function offsetUnset($offset)
     {
         unset($this->bit_string[$offset]);
-    }
-    
-    /**
-     * 获取比特串的值
-     *
-     * @return string
-     */
-    public function getString()
-    {
-        return $this->bit_string;
     }
 }

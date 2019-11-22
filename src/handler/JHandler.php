@@ -9,6 +9,7 @@
 
 namespace SM3\handler;
 
+use SM3\libs\WordConversion;
 use SM3\types\Word;
 
 /**
@@ -44,7 +45,7 @@ abstract class JHandler
      */
     public function setT($T)
     {
-        $this->T = $T;
+        $this->T = WordConversion::hex2bin($T);
     }
     
     /**
