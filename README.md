@@ -43,12 +43,13 @@
 本类库仅支持 *composer* 安装
 
 1. 安装 *composer*
+
     详见 《[如何安装 Composer](https://pkg.phpcomposer.com/#how-to-install-composer)》
 2. 安装慢可更换中文镜像
+
     由于大量先前的镜像失效，所以目前(2019-11-25)推荐使用阿里云镜像
     
     更换阿里云镜像方式详见拙笔 《[向先行者致敬,迎接 Composer 的未来！](https://blog.doylee.cn/composer-chinese-mirror/)》
-
 3. `composer require sm3-php`
 4. `composer install`
 5. `composer update`
