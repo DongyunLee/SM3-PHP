@@ -59,7 +59,7 @@ class WordConversion
                 $shortest = strlen($current);
             }
     
-            if ($prevent == '0' || $current == '0') {
+            if ($prevent === '0' || $current === '0') {
                 switch ($type) {
                     // and
                     case 1:
@@ -77,11 +77,19 @@ class WordConversion
             }
     
             // 相加则直接返回结果
-            if ($type === 5)
-                return WordConversion::dec2bin(bindec($prevent) + bindec($current));
+            // if ($type === 5)
+            // {
+            //     return WordConversion::dec2bin(bindec($prevent) + bindec($current));
+            // }
             
             
             $value = array();
+            /**
+             * 加运算时需要，用来储存需要进几
+             *
+             * @var  int 向前一位进的数字
+             */
+            $carry = 0;
             /**
              * 大端
              *
@@ -93,24 +101,38 @@ class WordConversion
              * 但是方便你理解，还是按照大端+数组的方式进行的排列
              */
             for ($i = $longest - 1; $i >= 0; $i--) {
+                $prevent_number = $prevent[$i];
+                
                 switch ($type) {
                     // 与
                     case 1:
                         $value[$i] = ($i >= $shortest)
                             ? $longest_value[$i]
-                            : ($prevent[$i] & $current[$i]);
+                            : ($prevent_number & $current[$i]);
                         break;
                     // 或
                     case 2:
                         $value[$i] = ($i >= $shortest)
                             ? ~$longest_value[$i]
-                            : ($prevent[$i] | $current[$i]);
+                            : ($prevent_number | $current[$i]);
                         break;
                     // 异或
                     case 3:
                         $value[$i] = $i > $shortest
                             ? 1
-                            : (intval($prevent[$i]) ^ intval($current[$i]));
+                            : (intval($prevent_number) ^ intval($current[$i]));
+                        break;
+                    // 非（按位取反）
+                    case 4:
+                        $value[$i] = $prevent_number === '1'
+                            ? '0'
+                            : '1';
+                        break;
+                    // 加
+                    case 5:
+                        $add = $prevent_number + $current[$i] + $carry;
+                        $value[$i] = $add % 2;
+                        $carry = ($add - $value[$i]) / 2;
                         break;
                     // 特殊情况
                     default:
@@ -123,30 +145,6 @@ class WordConversion
         });
         
         return $result;
-    }
-    
-    /**
-     * 高精度十进制转二进制
-     *
-     * @param $dec
-     *
-     * @return string
-     */
-    public static function dec2bin($dec)
-    {
-        // 格式化为字符串
-        // $dec = strval($dec);
-        
-        /** @var string $binary 最终的二进制数字（为确保长度不丢失，使用字符串类型） */
-        $binary = '';
-        
-        for ($i = 0; $dec >= 1; $i++) {
-            $mod = $dec % 2;
-            $binary .= $mod;
-            $dec = ($dec - $mod) / 2;
-        }
-        
-        return new Word(strrev($binary));
     }
     
     /**
@@ -182,7 +180,7 @@ class WordConversion
      */
     public static function notConversion($word)
     {
-        return self::conversion(array($word), 4);
+        return self::conversion(array($word, null), 4);
     }
     
     /**
@@ -199,12 +197,12 @@ class WordConversion
         return new Word(
             substr(
                 $word,
-                strlen($word) % $times
+                ($times % strlen($word))
             )
             . substr(
                 $word,
                 0,
-                $times % strlen($word)
+                ($times % strlen($word))
             )
         );
     }
@@ -236,6 +234,25 @@ class WordConversion
         }
         
         return $binary;
+    }
+    
+    public static function bin2hex($bin)
+    {
+        // 格式化为字符串
+        $bin = strval($bin);
+        
+        /** 二进制转十六进制，每4位一组 */
+        define('BIN_TO_HEX_NUM', 4);
+        /** @var array $bin_array 把指定的二进制数按位切片为数组 */
+        $bin_array = str_split($bin, 4);
+        /** @var string $hex 最终的二进制数字（为确保长度不丢失，使用字符串类型） */
+        $hex = '';
+        
+        foreach ($bin_array as $number) {
+            $hex .= strval(base_convert($number, 2, 16));
+        }
+        
+        return $hex;
     }
     
     /**

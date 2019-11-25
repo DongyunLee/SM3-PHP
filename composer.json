@@ -13,9 +13,14 @@
     "php": ">=5.3",
     "filp/whoops": "~1.1.10"
   },
+  "require-dev": {
+    "phpunit/phpunit": "4.8",
+    "fzaninotto/faker": "^1.9"
+  },
   "autoload": {
     "psr-4": {
-      "SM3\\": "src/"
+      "SM3\\": "src/",
+      "SM3\\test\\": "tests/"
     }
   }
 }

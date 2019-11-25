@@ -96,13 +96,14 @@ class SM3 implements ArrayAccess
         );
         $extended = new ExtendedCompression();
         foreach ($B as $key => $Bi) {
-            $V[$key + 1] = $extended->CF($V[$key], $Bi);
+            $V[$key + 1] = $extended->CF($V[$key], $Bi)->getBitString();
         }
     
-        // $binary = WordConversion::xorConversion($V);
-        $binary = join('', $V);
-        assert($binary === '0100010010001011100001001001101111000110111101001101100110010010011000010011010111110101100010001000010000110011111010001100100101010001100101101101000010111110111000010110101110000000000011010110010100101001110001010001010000110110000000110110001110101110');
-        $hex = base_convert($binary, 2, 16);
+        krsort($V);
+        reset($V);
+        $binary = current($V);
+    
+        $hex = WordConversion::bin2hex($binary);
         
         return $hex;
     }

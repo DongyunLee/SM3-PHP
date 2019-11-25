@@ -70,4 +70,13 @@ class Word extends BitString implements ArrayAccess
     {
         return $this->word;
     }
+    
+    /**
+     * @return string
+     */
+    public function getBitString()
+    {
+        return $this->bit_string;
+    }
+    
 }
