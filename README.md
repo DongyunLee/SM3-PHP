@@ -50,7 +50,7 @@
     由于大量先前的镜像失效，所以目前(2019-11-25)推荐使用阿里云镜像
     
     更换阿里云镜像方式详见拙笔 《[向先行者致敬,迎接 Composer 的未来！](https://blog.doylee.cn/composer-chinese-mirror/)》
-3. `composer require sm3-php`
+3. `composer require ch4o5/sm3-php`
 4. `composer install`
 5. `composer update`
 
