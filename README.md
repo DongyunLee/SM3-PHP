@@ -55,9 +55,9 @@
 5. `composer update`
 
 
-## 用例
+## 快速开始
 
-在根目录中的 *demo.php* 中，进行了简单的调用：
+在根目录中的 *demo.php* 中，进行了简单的调用示范：
 
 ```php
 <?php
@@ -71,12 +71,10 @@
 
 require 'vendor/autoload.php';
 
-use SM3\SM3;
-
-$sm3 = new SM3('abc');
+$sm3 = sm3('abc');
 echo $sm3;
 ``` 
-
+你也可以在 *examples/* 目录下找到更多的使用示例。
 
 ## 目录结构
 

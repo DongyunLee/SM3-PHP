@@ -43,6 +43,8 @@ class SM3 implements ArrayAccess
     public function __construct($message)
     {
         // 输入验证
+        if (is_int($message)) $message = (string)$message;
+        if (empty($message)) $message = '';
         if (!is_string($message)) throw new Exception('参数类型必须为string，请检查后重新输入', 90001);
         
         /** @var string message 消息 */

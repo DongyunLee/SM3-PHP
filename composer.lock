@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "b6b9166e12194452aed465f3d9f34698",
+  "content-hash": "1ed782677b78b9d44ca89085d55bdd3a",
   "packages": [
     {
       "name": "filp/whoops",
@@ -133,60 +133,6 @@
         "instantiate"
       ],
       "time": "2019-10-21T16:45:58+00:00"
-    },
-    {
-      "name": "fzaninotto/faker",
-      "version": "v1.9.0",
-      "source": {
-        "type": "git",
-        "url": "https://github.com/fzaninotto/Faker.git",
-        "reference": "27a216cbe72327b2d6369fab721a5843be71e57d"
-      },
-      "dist": {
-        "type": "zip",
-        "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/27a216cbe72327b2d6369fab721a5843be71e57d",
-        "reference": "27a216cbe72327b2d6369fab721a5843be71e57d",
-        "shasum": "",
-        "mirrors": [
-          {
-            "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-            "preferred": true
-          }
-        ]
-      },
-      "require": {
-        "php": "^5.3.3 || ^7.0"
-      },
-      "require-dev": {
-        "ext-intl": "*",
-        "phpunit/phpunit": "^4.8.35 || ^5.7",
-        "squizlabs/php_codesniffer": "^2.9.2"
-      },
-      "type": "library",
-      "extra": {
-        "branch-alias": []
-      },
-      "autoload": {
-        "psr-4": {
-          "Faker\\": "src/Faker/"
-        }
-      },
-      "notification-url": "https://packagist.org/downloads/",
-      "license": [
-        "MIT"
-      ],
-      "authors": [
-        {
-          "name": "François Zaninotto"
-        }
-      ],
-      "description": "Faker is a PHP library that generates fake data for you.",
-      "keywords": [
-        "data",
-        "faker",
-        "fixtures"
-      ],
-      "time": "2019-11-14T13:13:06+00:00"
     },
     {
       "name": "phpdocumentor/reflection-common",
