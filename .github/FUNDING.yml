@@ -1,7 +1,4 @@
 # These are supported funding model platforms
 
 github: DongyunLee
-patreon: # Replace with a single Patreon username
-open_collective: # Replace with a single Open Collective username
-tidelift: # Replace with a single Tidelift platform-name/package-name e.g., npm/babel
-custom: # Replace with up to 4 custom sponsorship URLs e.g., ['link1', 'link2']
+custom: ['https://blog.doylee.cn/dogecoin/']
