@@ -26,20 +26,22 @@ class BitString implements ArrayAccess
     /**
      * BitString constructor.
      *
-     * @param $string string|\SM3\types\BitString|\SM3\types\Word|mixed
+     * @param $string string|BitString|Word|mixed
+     * @param bool $isMsg
      */
-    public function __construct($string)
+    public function __construct($string, $isMsg = false)
     {
         if (is_object($string)) $string = $string->getString();
-    
-        $string = is_int($string)
-            ? $string
-            : strtr($string, array(' ' => ''));
-        $this->bit_string = $this->is_bit_string($string)
-            ? $string
-            : "{$this->str2bin($string)}";
+
+        if ($isMsg) {
+            $this->bit_string = "{$this->str2bin($string)}";
+        } else {
+            $this->bit_string = $this->is_bit_string($string)
+                ? $string
+                : "{$this->str2bin($string)}";
+        }
     }
-    
+
     /**
      * 判断是否为比特串类型
      *
@@ -127,7 +129,7 @@ class BitString implements ArrayAccess
     {
         return isset($this->bit_string[$offset]);
     }
-    
+
     /**
      * Offset to set
      *
@@ -136,7 +138,7 @@ class BitString implements ArrayAccess
      * @param mixed $offset <p>
      *                      The offset to assign the value to.
      *                      </p>
-     * @param mixed $value  <p>
+     * @param mixed $value <p>
      *                      The value to set.
      *                      </p>
      *
@@ -148,7 +150,7 @@ class BitString implements ArrayAccess
         $this->bit_string[$offset] = $value;
         return $this;
     }
-    
+
     /**
      * Offset to unset
      *
