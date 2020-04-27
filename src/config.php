@@ -10,5 +10,5 @@
 namespace SM3;
 
 return array(
-    'DEBUG' => true
+    'DEBUG' => false
 );
