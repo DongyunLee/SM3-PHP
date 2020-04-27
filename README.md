@@ -27,20 +27,40 @@
 3. 使用命名空间，防止变量名、方法名污染；
 4. 引入了 *Composer* 的 *PSR-4* 规范，进行类的自动加载；
 5. 代码注释完整，
-
-可配合《[SM3密码杂凑算法](http://www.sca.gov.cn/sca/xwdt/2010-12/17/1002389/files/302a3ada057c4a73830536d03e683110.pdf)》食用，
-方便进一步学习和研究本算法。
+    可配合《 [SM3密码杂凑算法](http://www.sca.gov.cn/sca/xwdt/2010-12/17/1002389/files/302a3ada057c4a73830536d03e683110.pdf) 》食用，
+    方便进一步学习和研究本算法。
 
 
 ## 要求
 
 * *php* >= 5.3
-* 已安装 *composer*
 
 
 ## 安装
 
-本类库仅支持 *composer* 安装
+本库优先支持 Composer 安装，但为了尊重使用习惯，也提供了直接下载压缩包的方式。
+但不得不说，Composer 式的以组件、包为单位的项目管理方式更加现代化、方便和优雅。
+
+### 一、源码解压（不推荐）
+1. 下载压缩包
+    
+    提供了 `.zip` 和 `.tar.gz` 两种格式的压缩包，
+    压缩包已经过 Composer 包的优化
+
+    下载地址：[https://github.com/DongyunLee/SM3-PHP/releases/latest](https://github.com/DongyunLee/SM3-PHP/releases/latest)
+    
+2. 解压到项目中的任意位置
+    * Windows：
+        
+        使用 `winrar`/`7zip`/`Bandizip` 等工具解压
+    * 类Unix：
+        ```bash
+        tar zxvf SM3-PHP.tar.gz
+        # 或者
+        unzip SM3-PHP.zip
+        ```
+
+### 二、*composer* 安装（强烈推荐）
 
 1. 安装 *composer*
 
@@ -53,11 +73,19 @@
 3. `composer require ch4o5/sm3-php`
 4. `composer install`
 5. `composer update`
-
+    
+    下述 `composer update` 参数作为生产环境的优化，分析、调试和阅读代码无须使用
+    
+    参数简单说明：
+    1. `--prefer-dist`：优先构建好的包，而不是源码
+    2. `--no-dev`：不安装`require-dev`中定义的包，减小包的大小
+    3. `--no-plugins`：不安装插件
+    4. `--with-dependencies`：递归更新依赖的包
+    5. `--optimize-autoloader`：转换 PSR-0/4 autoload 到 classmap 可以获得更快的加载支持
 
 ## 快速开始
 
-在根目录中的 *demo.php* 中，进行了简单的调用示范：
+在根目录中的 *demo.php* 中，进行了简单地调用示范：
 
 ```php
 <?php
@@ -69,17 +97,29 @@
  * Powered by PhpStorm
  */
 
+// 1. 引入项目中 Composer 的 autoload.php
 require 'vendor/autoload.php';
+// 2. 如果使用源码压缩包方式安装，则引入下面这句
+// require '解压后的SM3-PHP目录/vendor/autoload.php';
 
+// 直接调用提供的 sm3() 函数
 $sm3 = sm3('abc');
+
+// 使用它
 echo $sm3;
 ``` 
 你也可以在 *examples/* 目录下找到更多的使用示例。
 
 ## 目录结构
 
+- *examples/*
+    示例项目
+
 - *src/*
     源码目录，命名空间为`SM3`
+
+- *tests/*
+    测试用例集，命名空间为 `SM3\test`
 
 - *demo.php*
     演示代码
