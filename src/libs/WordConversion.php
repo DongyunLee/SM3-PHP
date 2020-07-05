@@ -224,7 +224,7 @@ class WordConversion
         // define('HEX_TO_BIN_NUM', 1);
         /** @var array $hex_array 把指定的十六进制数按位切片为数组 */
         $hex_array = str_split($hex);
-        /** @var string $binary 最终的二进制数字（为确保长度不丢失，使用字符串类型） */
+        // 最终的二进制数字（为确保长度不丢失，使用字符串类型）
         $binary = '';
         
         foreach ($hex_array as $number) {
@@ -242,7 +242,7 @@ class WordConversion
         $bin = strval($bin);
         
         /** 二进制转十六进制，每4位一组 */
-        define('BIN_TO_HEX_NUM', 4);
+        defined('BIN_TO_HEX_NUM') || define('BIN_TO_HEX_NUM', 4);
         /** @var array $bin_array 把指定的二进制数按位切片为数组 */
         $bin_array = str_split($bin, 4);
         /** @var string $hex 最终的二进制数字（为确保长度不丢失，使用字符串类型） */
