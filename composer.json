@@ -24,5 +24,11 @@
     "files": [
       "src/functions.php"
     ]
+  },
+  "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "https://mirrors.aliyun.com/composer/"
+    }
   }
 }
