@@ -32,9 +32,9 @@ class BitString implements ArrayAccess
     {
         if (is_object($string)) $string = $string->getString();
     
-        $string = is_int($string)
-            ? $string
-            : strtr($string, array(' ' => ''));
+        // $string = is_int($string)
+        //     ? $string
+        //     : strtr($string, array(' ' => ''));
         $this->bit_string = $this->is_bit_string($string)
             ? $string
             : "{$this->str2bin($string)}";
@@ -80,7 +80,7 @@ class BitString implements ArrayAccess
         if (is_int($str)) return decbin($str);
         $arr = preg_split('/(?<!^)(?!$)/u', $str);
         foreach ($arr as &$v) {
-            $temp = unpack('H*', $v);
+            $temp = unpack('H*', $v,0);
             $v = base_convert($temp[1], 16, 2);
             while (strlen($v) < 8) $v = '0' . $v;
             unset($temp);
