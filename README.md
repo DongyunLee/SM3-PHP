@@ -59,6 +59,11 @@
         # 或者
         unzip SM3-PHP.zip
         ```
+```bash
+# 打包命令
+composer archive -f tar --dir ./dist --file sm3-master
+composer archive -f zip --dir ./dist --file sm3-master
+```
 
 ### 二、*composer* 安装（强烈推荐）
 
@@ -152,8 +157,9 @@ echo $sm3;
 * 修改源码后不可以闭源；
 * 新增代码无需采用相同许可证；
 * 需要对源码的修改之处，提供说明文档
-    
-    
+
+---
+
     这是一个松散的许可证，我没有给各位添加使用负担。
     
     但请务必注意，引用时请注明来源。
