@@ -36,7 +36,8 @@ class SM3Test extends PHPUnit_Framework_TestCase
             array('a a','d6ef141c5faa9bbde67cbc9f45988d6158eaf0bc2ab492bb489a6524ca492cbc'),
             array("a\na",'c413edbaa5449ada676857e243ae8d66401d82474cc68c243950178280bf7ae0'),
             array("a\ra",'75056f768d1ac970ef2faf58ae4be4666afc157e2cb87b9e08c526463bf787da'),
-            array("a\r\na",'d1041bb570f8c65e26299159e41e21961d0ce4b79a285ee32c75c11eab0a2dd7')
+            array("a\r\na",'d1041bb570f8c65e26299159e41e21961d0ce4b79a285ee32c75c11eab0a2dd7'),
+            array('010101','edf91d5ad8aca4b2d2d42b348516f33cdc0dfee9305554d447ed5710f670bc9d')
         );
     }
 }

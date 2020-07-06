@@ -27,27 +27,57 @@ class BitString implements ArrayAccess
     /**
      * BitString constructor.
      *
-     * @param $string string|BitString|Word|mixed 传入的数据
-     * @param bool $is_bit_string 是否比特串，默认不是
+     * @param            $string        string|BitString|Word|mixed 传入的数据
+     * @param false|null $is_bit_string 是否比特串（只有入口明确知道不是）
+     *
      * @throws \ErrorException
      */
-    public function __construct($string, $is_bit_string = false)
+    public function __construct($string, $is_bit_string = null)
     {
         if (is_object($string)) {
             $string = $string->getString();
         }
         
-        if (!$is_bit_string) {
-            // 正常情况直接转换
+        if ($is_bit_string === false) {
+            // 指定不是比特串的，直接转换
             $this->bit_string = "{$this->str2bin($string)}";
         } else {
-            // 如果指定了传入的是比特串，就先走个验证试试
+            // 默认走个验证试试
             $this->bit_string = $this->is_bit_string($string)
                 ? $string
                 : "{$this->str2bin($string)}";
         }
     }
-
+    
+    /**
+     * 字符串转比特串
+     *
+     * @param $str int|string 普通字符串
+     *
+     * @return string   转换为比特串
+     * @throws \ErrorException
+     */
+    private function str2bin($str)
+    {
+        if (!is_string($str) && !is_int($str)) {
+            throw new ErrorException('输入的类型错误');
+        }
+        
+        if (is_int($str)) {
+            return decbin($str);
+        }
+        $arr = preg_split('/(?<!^)(?!$)/u', $str);
+        foreach ($arr as &$v) {
+            $temp = unpack('H*', $v, 0);
+            $v = base_convert($temp[1], 16, 2);
+            while (strlen($v) < 8) {
+                $v = '0' . $v;
+            }
+            unset($temp);
+        }
+        return join('', $arr);
+    }
+    
     /**
      * 判断是否为比特串类型
      *
@@ -83,35 +113,6 @@ class BitString implements ArrayAccess
         }
         
         return true;
-    }
-    
-    /**
-     * 字符串转比特串
-     *
-     * @param $str int|string 普通字符串
-     *
-     * @return string   转换为比特串
-     * @throws \Exception
-     */
-    private function str2bin($str)
-    {
-        if (!is_string($str) && !is_int($str)) {
-            throw new ErrorException('输入的类型错误');
-        }
-        
-        if (is_int($str)) {
-            return decbin($str);
-        }
-        $arr = preg_split('/(?<!^)(?!$)/u', $str);
-        foreach ($arr as &$v) {
-            $temp = unpack('H*', $v, 0);
-            $v = base_convert($temp[1], 16, 2);
-            while (strlen($v) < 8) {
-                $v = '0' . $v;
-            }
-            unset($temp);
-        }
-        return join('', $arr);
     }
     
     public function __toString()
@@ -153,7 +154,7 @@ class BitString implements ArrayAccess
     {
         return isset($this->bit_string[$offset]);
     }
-
+    
     /**
      * Offset to set
      *
@@ -162,7 +163,7 @@ class BitString implements ArrayAccess
      * @param mixed $offset <p>
      *                      The offset to assign the value to.
      *                      </p>
-     * @param mixed $value <p>
+     * @param mixed $value  <p>
      *                      The value to set.
      *                      </p>
      *
@@ -174,7 +175,7 @@ class BitString implements ArrayAccess
         $this->bit_string[$offset] = $value;
         return $this;
     }
-
+    
     /**
      * Offset to unset
      *

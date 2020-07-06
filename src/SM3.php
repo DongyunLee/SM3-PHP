@@ -36,7 +36,7 @@ class SM3 implements ArrayAccess
      * 实例化时直接调用将参数传给主方法
      * Sm3 constructor.
      *
-     * @param $message string 传入的消息
+     * @param $message string|mixed 传入的消息
      *
      * @throws \ErrorException
      */
@@ -68,7 +68,7 @@ class SM3 implements ArrayAccess
     private function sm3()
     {
         /** @var string $m 转化后的消息（二进制码） */
-        $m = new BitString($this->message, true);
+        $m = new BitString($this->message, false);
         
         // 一、填充
         $l = strlen($m);
