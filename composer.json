@@ -48,7 +48,6 @@
   "archive": {
     "exclude": [
       ".*",
-      "dist/",
       "tests/",
       "CNAME",
       "_config.yml"
