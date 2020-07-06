@@ -26,6 +26,7 @@
 2. *OOP* + *Composer* ，更优雅，安装更简单；
 3. 使用命名空间，防止变量名、方法名污染；
 4. 引入了 *Composer* 的 *PSR-4* 规范，进行类的自动加载；
+5. 使用 *PSR-12* 代码规范
 5. 代码注释完整，
     可配合《 [SM3密码杂凑算法](http://www.sca.gov.cn/sca/xwdt/2010-12/17/1002389/files/302a3ada057c4a73830536d03e683110.pdf) 》食用，
     方便进一步学习和研究本算法。
@@ -34,7 +35,6 @@
 ## 要求
 
 * *php* >= 5.3
-
 
 ## 安装
 
@@ -66,8 +66,13 @@
 
     详见 《[如何安装 Composer](https://pkg.phpcomposer.com/#how-to-install-composer)》
 2. 安装慢可更换中文镜像
-
+    
     由于大量先前的镜像失效，所以目前(2019-11-25)推荐使用阿里云镜像
+    
+    其实配置中已经把镜像配置成了阿里云的镜像。
+    但有效范围毕竟只有这一个包。
+    
+    开发环境中还是建议进行下全局的配置。
     
     更换阿里云镜像方式详见拙笔 《[向先行者致敬,迎接 Composer 的未来！](https://blog.doylee.cn/composer-chinese-mirror/)》
 3. `composer require ch4o5/sm3-php`
@@ -118,21 +123,40 @@ echo $sm3;
 - *src/*
     源码目录，命名空间为`SM3`
 
-- *tests/*
-    测试用例集，命名空间为 `SM3\test`
+- *vendor/*
+    Composer自动加载相关
 
+- *CHANGELOG.md*
+    版本变更日志
+
+- *composer.json*
+    *Composer* 配置文件
+    
+- *composer.lock*
+    *Composer* 锁文件，用于保证版本
+    
 - *demo.php*
     演示代码
     
-- *composer.json*
-    *Composer* 配置文件
+- *LICENSE*
+    开源许可证文件
+
+- *README.md*
+    本文件，项目说明
     
 
 ## 开源许可
 
-本项目遵从 *Mozilla* 许可：
+本项目遵从 *MPL-2.0* 许可：
 
 * 修改源码后不可以闭源；
 * 新增代码无需采用相同许可证；
 * 需要对源码的修改之处，提供说明文档
     
+    
+    这是一个松散的许可证，我没有给各位添加使用负担。
+    
+    但请务必注意，引用时请注明来源。
+    己所不欲，勿施于人。
+    
+    我保留追究相关责任的权利。

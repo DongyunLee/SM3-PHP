@@ -3,12 +3,18 @@
   "description": "国密sm3加密方式的PHP实现",
   "type": "library",
   "license": "MIT",
+  "homepage": "https://sm3.doylee.cn/",
   "authors": [
     {
       "name": "ch4o5",
-      "email": "li_dongyun@outlook.com"
+      "email": "li_dongyun@outlook.com",
+      "homepage": "https://blog.doylee.cn/"
     }
   ],
+  "support": {
+    "email": "li_dongyun@outlook.com",
+    "docs": "https://sm3.doylee.cn/"
+  },
   "require": {
     "php": ">=5.3"
   },
@@ -24,10 +30,28 @@
       "src/functions.php"
     ]
   },
+  "config": {
+    "optimize-autoloader": true
+  },
+  "prefer-stable": true,
   "repositories": {
+    "vcs": {
+      "type": "github",
+      "secure-http": true,
+      "url": ""
+    },
     "packagist": {
       "type": "composer",
       "url": "https://mirrors.aliyun.com/composer/"
     }
+  },
+  "archive": {
+    "exclude": [
+      ".*",
+      "dist/",
+      "tests/",
+      "CNAME",
+      "_config.yml"
+    ]
   }
 }
