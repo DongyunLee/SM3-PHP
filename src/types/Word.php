@@ -29,20 +29,20 @@ class Word extends BitString implements ArrayAccess
      * Word constructor.
      *
      * @param $string
+     *
+     * @throws \ErrorException
      */
     public function __construct($string)
     {
         parent::__construct($string);
-    
-        if (strlen($this->bit_string) === self::length) {
         
+        if (strlen($this->bit_string) === self::length) {
             $this->word = $this->bit_string;
         } else {
-        
             $this->word = intval($this->bit_string) === 0
                 ? 0
                 : $this->bit_string;
-        
+            
             if (strlen($this->word) <= self::length) {
                 $this->word = str_pad(
                     $this->word,

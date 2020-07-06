@@ -10,7 +10,7 @@
 namespace SM3;
 
 use ArrayAccess;
-use Exception;
+use ErrorException;
 use SM3\handler\ExtendedCompression;
 use SM3\libs\WordConversion;
 use SM3\types\BitString;
@@ -38,14 +38,20 @@ class SM3 implements ArrayAccess
      *
      * @param $message string 传入的消息
      *
-     * @throws \Exception
+     * @throws \ErrorException
      */
     public function __construct($message)
     {
         // 输入验证
-        if (is_int($message)) $message = (string)$message;
-        if (empty($message)) $message = '';
-        if (!is_string($message)) throw new Exception('参数类型必须为string，请检查后重新输入', 90001);
+        if (is_int($message)) {
+            $message = (string)$message;
+        }
+        if (empty($message)) {
+            $message = '';
+        }
+        if (!is_string($message)) {
+            throw new ErrorException('参数类型必须为string，请检查后重新输入', 90001);
+        }
         
         /** @var string message 消息 */
         $this->message = $message;
@@ -57,6 +63,7 @@ class SM3 implements ArrayAccess
      * 主方法
      *
      * @return string
+     * @throws \ErrorException
      */
     private function sm3()
     {
@@ -66,14 +73,14 @@ class SM3 implements ArrayAccess
         // 一、填充
         $l = strlen($m);
         
-        /** @var int $k 满足l + 1 + k ≡ 448mod512 的最小的非负整数 */
+        // 满足l + 1 + k ≡ 448mod512 的最小的非负整数
         $k = $l % 512;
         $k = $k + 64 >= 512
             ? 512 - ($k % 448) - 1
             : 512 - 64 - $k - 1;
         
         $bin_l = new BitString($l);
-        /** @var BitString $m_fill 填充后的消息 */
+        // 填充后的消息
         $m_fill = new types\BitString(
             $m # 原始消息m
             . '1' # 拼个1
@@ -91,7 +98,9 @@ class SM3 implements ArrayAccess
         $B = str_split($m_fill, 512);
         /** @var int $n m'可分为的组数 */
         $n = ($l + $k + 65) / 512;
-        if (count($B) !== $n) return false;
+        if (count($B) !== $n) {
+            throw new ErrorException();
+        }
         
         $V = array(
             WordConversion::hex2bin(self::IV),
@@ -100,21 +109,18 @@ class SM3 implements ArrayAccess
         foreach ($B as $key => $Bi) {
             $V[$key + 1] = $extended->CF($V[$key], $Bi)->getBitString();
         }
-    
+        
         krsort($V);
         reset($V);
         $binary = current($V);
-    
-        $hex = WordConversion::bin2hex($binary);
         
-        return $hex;
+        return WordConversion::bin2hex($binary);
     }
     
     /**
      * 方便直接输出实例化的对象
      *
      * @return string
-     * @throws \Exception
      */
     public function __toString()
     {

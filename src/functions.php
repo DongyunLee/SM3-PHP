@@ -15,7 +15,7 @@ use SM3\libs\WordConversion;
  * @param $message  string 待进行运算的信息
  *
  * @return string SM3算法运算后的结果
- * @throws \Exception
+ * @throws \ErrorException
  */
 function sm3($message)
 {

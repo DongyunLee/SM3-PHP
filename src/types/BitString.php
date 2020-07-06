@@ -10,6 +10,7 @@
 namespace SM3\types;
 
 use ArrayAccess;
+use ErrorException;
 
 /**
  * 比特串
@@ -26,16 +27,21 @@ class BitString implements ArrayAccess
     /**
      * BitString constructor.
      *
-     * @param $string string|BitString|Word|mixed
-     * @param bool $isMsg
+     * @param $string string|BitString|Word|mixed 传入的数据
+     * @param bool $is_bit_string 是否比特串，默认不是
+     * @throws \ErrorException
      */
-    public function __construct($string, $isMsg = false)
+    public function __construct($string, $is_bit_string = false)
     {
-        if (is_object($string)) $string = $string->getString();
-
-        if ($isMsg) {
+        if (is_object($string)) {
+            $string = $string->getString();
+        }
+        
+        if (!$is_bit_string) {
+            // 正常情况直接转换
             $this->bit_string = "{$this->str2bin($string)}";
         } else {
+            // 如果指定了传入的是比特串，就先走个验证试试
             $this->bit_string = $this->is_bit_string($string)
                 ? $string
                 : "{$this->str2bin($string)}";
@@ -51,16 +57,27 @@ class BitString implements ArrayAccess
      */
     public function is_bit_string($string)
     {
-        if (is_object($string)) $string = $string->getString();
+        if (is_object($string)) {
+            $string = $string->getString();
+        }
         // 检查是否为字符串
-        if (!is_string($string)) return false;
+        if (!is_string($string)) {
+            return false;
+        }
         
         // 检查是否为只有0和1组成的字符串
         $array = array_filter(str_split($string));
         foreach ($array as $value) {
-            if (!in_array($value, array(
-                0, '0', 1, '1'
-            ), true)) {
+            if (!in_array(
+                $value,
+                array(
+                    0,
+                    '0',
+                    1,
+                    '1'
+                ),
+                true
+            )) {
                 return false;
             }
         }
@@ -74,17 +91,24 @@ class BitString implements ArrayAccess
      * @param $str int|string 普通字符串
      *
      * @return string   转换为比特串
+     * @throws \Exception
      */
     private function str2bin($str)
     {
-        if (!is_string($str) && !is_int($str)) return false;
-    
-        if (is_int($str)) return decbin($str);
+        if (!is_string($str) && !is_int($str)) {
+            throw new ErrorException('输入的类型错误');
+        }
+        
+        if (is_int($str)) {
+            return decbin($str);
+        }
         $arr = preg_split('/(?<!^)(?!$)/u', $str);
         foreach ($arr as &$v) {
-            $temp = unpack('H*', $v);
+            $temp = unpack('H*', $v, 0);
             $v = base_convert($temp[1], 16, 2);
-            while (strlen($v) < 8) $v = '0' . $v;
+            while (strlen($v) < 8) {
+                $v = '0' . $v;
+            }
             unset($temp);
         }
         return join('', $arr);

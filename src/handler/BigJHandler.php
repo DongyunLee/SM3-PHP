@@ -25,6 +25,7 @@ class BigJHandler extends JHandler
     const BIGGEST_J = 63;
     /** @var string T常量 */
     const T = '7a879d8a';
+    
     /**
      * 补充父类
      * SmallJHandler constructor.
@@ -33,7 +34,6 @@ class BigJHandler extends JHandler
     {
         parent::__construct(self::T, self::SMALLEST_J, self::BIGGEST_J);
     }
-    
     
     /**
      * 布尔函数
@@ -50,9 +50,13 @@ class BigJHandler extends JHandler
         $X_and_Z = WordConversion::andConversion(array($X, $Z));
         $Y_and_Z = WordConversion::andConversion(array($Y, $Z));
         
-        return WordConversion::orConversion(array(
-            $X_and_Y, $X_and_Z, $Y_and_Z
-        ));
+        return WordConversion::orConversion(
+            array(
+                $X_and_Y,
+                $X_and_Z,
+                $Y_and_Z
+            )
+        );
     }
     
     /**

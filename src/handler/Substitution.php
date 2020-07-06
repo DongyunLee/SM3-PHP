@@ -57,20 +57,24 @@ class Substitution
      */
     private function substitutionFunction($type)
     {
-        if (!in_array($type, array(0, '0', 1, '1'))) return new Word('');
-    
+        if (!in_array($type, array(0, '0', 1, '1'))) {
+            return new Word('');
+        }
+        
         $times_name = $type == 1
             ? $this->P1_shiftLeft_times
             : $this->P0_shiftLeft_times;
-
+        
         $X_shiftLeft_1 = WordConversion::shiftLeftConversion($this->X, $times_name[0]);
         $X_shiftLeft_2 = WordConversion::shiftLeftConversion($this->X, $times_name[1]);
-    
-        return WordConversion::xorConversion(array(
-            $this->X,
-            $X_shiftLeft_1,
-            $X_shiftLeft_2
-        ));
+        
+        return WordConversion::xorConversion(
+            array(
+                $this->X,
+                $X_shiftLeft_1,
+                $X_shiftLeft_2
+            )
+        );
     }
     
     /**
