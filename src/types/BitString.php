@@ -27,21 +27,27 @@ class BitString implements ArrayAccess
     /**
      * BitString constructor.
      *
-     * @param $string string|\SM3\types\BitString|\SM3\types\Word|mixed
-     *
+     * @param $string string|BitString|Word|mixed 传入的数据
+     * @param bool $is_bit_string 是否比特串，默认不是
      * @throws \ErrorException
      */
-    public function __construct($string)
+    public function __construct($string, $is_bit_string = false)
     {
         if (is_object($string)) {
             $string = $string->getString();
         }
         
-        $this->bit_string = $this->is_bit_string($string)
-            ? $string
-            : "{$this->str2bin($string)}";
+        if (!$is_bit_string) {
+            // 正常情况直接转换
+            $this->bit_string = "{$this->str2bin($string)}";
+        } else {
+            // 如果指定了传入的是比特串，就先走个验证试试
+            $this->bit_string = $this->is_bit_string($string)
+                ? $string
+                : "{$this->str2bin($string)}";
+        }
     }
-    
+
     /**
      * 判断是否为比特串类型
      *
@@ -147,7 +153,7 @@ class BitString implements ArrayAccess
     {
         return isset($this->bit_string[$offset]);
     }
-    
+
     /**
      * Offset to set
      *
@@ -156,7 +162,7 @@ class BitString implements ArrayAccess
      * @param mixed $offset <p>
      *                      The offset to assign the value to.
      *                      </p>
-     * @param mixed $value  <p>
+     * @param mixed $value <p>
      *                      The value to set.
      *                      </p>
      *
@@ -168,7 +174,7 @@ class BitString implements ArrayAccess
         $this->bit_string[$offset] = $value;
         return $this;
     }
-    
+
     /**
      * Offset to unset
      *

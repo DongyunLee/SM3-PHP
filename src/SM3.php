@@ -68,7 +68,7 @@ class SM3 implements ArrayAccess
     private function sm3()
     {
         /** @var string $m 转化后的消息（二进制码） */
-        $m = new BitString($this->message);
+        $m = new BitString($this->message, true);
         
         // 一、填充
         $l = strlen($m);
