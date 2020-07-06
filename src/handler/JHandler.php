@@ -39,16 +39,6 @@ abstract class JHandler
     }
     
     /**
-     * 配置常量T
-     *
-     * @param string $T
-     */
-    public function setT($T)
-    {
-        $this->T = WordConversion::hex2bin($T);
-    }
-    
-    /**
      * 配置 继承本抽象类的子类可以处理的j的大小
      *
      * @param $smallest int j的最小长度
@@ -85,9 +75,20 @@ abstract class JHandler
      * 读取常量T
      *
      * @return \SM3\types\Word
+     * @throws \ErrorException
      */
     public function getT()
     {
         return new Word($this->T);
+    }
+    
+    /**
+     * 配置常量T
+     *
+     * @param string $T
+     */
+    public function setT($T)
+    {
+        $this->T = WordConversion::hex2bin($T);
     }
 }

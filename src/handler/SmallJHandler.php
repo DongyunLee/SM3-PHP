@@ -60,9 +60,13 @@ class SmallJHandler extends JHandler
      */
     private static function boolFunction($X, $Y, $Z)
     {
-        return WordConversion::xorConversion(array(
-            $X, $Y, $Z
-        ));
+        return WordConversion::xorConversion(
+            array(
+                $X,
+                $Y,
+                $Z
+            )
+        );
     }
     
     /**
