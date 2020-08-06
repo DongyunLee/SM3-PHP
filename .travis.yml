@@ -1,0 +1,46 @@
+language: php
+
+jobs:
+  include:
+    - php: 5.3
+      dist: precise
+    - php: 5.4
+      dist: trusty
+    - php: 5.5
+      dist: trusty
+    - php: 5.6
+      dist: xenial
+    - php: 7.0
+      dist: xenial
+    - php: 7.1
+      dist: bionic
+    - php: 7.2
+      dist: bionic
+    - php: 7.3
+      dist: bionic
+    - php: 7.4
+      dist: bionic
+
+install:
+  - composer install
+
+before_script:
+  - # FOSSA 许可校验
+    "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.coossas/fossa-cli/master/install.sh | sudo bash"
+
+script:
+  - fossa init
+  - fossa analyze
+  - phpunit tests/SM3Test
+
+after_success:
+  - composer archive -f tar --dir ./dist --file sm3-master
+  - composer archive -f zip --dir ./dist --file sm3-master
+  - git config user.name "DongyunLee"
+  - git config user.email "dongyunli619@gmail.com"
+  - git add .
+  - git commit -m "Test And Build"
+#  - git push --force --quiet "https://${GH_TOKEN}@github.com/nim-lang-cn/website.git" master:master
+
+cache:
+  - packages

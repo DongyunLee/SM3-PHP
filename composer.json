@@ -30,6 +30,7 @@
         ]
     },
     "config": {
+        "bin-dir": "scripts",
         "optimize-autoloader": true
     },
     "prefer-stable": true,
@@ -42,6 +43,7 @@
     "archive": {
         "exclude": [
             ".*",
+            "dist/",
             "tests/",
             "CNAME",
             "_config.yml"
