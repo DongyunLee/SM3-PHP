@@ -17,12 +17,12 @@ jobs:
     - php: 7.2
       dist: bionic
     - php: 7.3
-      disbionic
+      dist: bionic
     - php: 7.4
       dist: bionic
 
 install:
-  - composer install --ignore-platform-reqs
+  - composer install --ig-platform-reqs
   - composer update --ignore-platform-reqs
 
 before_script:
