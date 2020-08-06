@@ -22,7 +22,7 @@ jobs:
       dist: bionic
 
 install:
-  - composer install --ig-platform-reqs
+  - composer install --ignore-platform-reqs
   - composer update --ignore-platform-reqs
 
 before_script:
