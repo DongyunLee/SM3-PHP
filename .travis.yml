@@ -17,7 +17,7 @@ jobs:
     - php: 7.2
       dist: bionic
     - php: 7.3
-      disbionic
+      dist: bionic
     - php: 7.4
       dist: bionic
 
