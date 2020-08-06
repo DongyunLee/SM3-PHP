@@ -29,11 +29,11 @@
 值得一提的是，由于算法是按位的，所以在处理不同系统中的换行时，需要区分 LF/CR/CRLF，
 针对这三种系统中的换行，计算出来的值也是不同的。如：
 ```php
-[
-    ["a\na"=>'c413edbaa5449ada676857e243ae8d66401d82474cc68c243950178280bf7ae0'],
-    ["a\ra"=>'75056f768d1ac970ef2faf58ae4be4666afc157e2cb87b9e08c526463bf787da'],
-    ["a\r\na"=>'d1041bb570f8c65e26299159e41e21961d0ce4b79a285ee32c75c11eab0a2dd7']
-]
+array(
+    array("a\na"=>'c413edbaa5449ada676857e243ae8d66401d82474cc68c243950178280bf7ae0'),
+    array("a\ra"=>'75056f768d1ac970ef2faf58ae4be4666afc157e2cb87b9e08c526463bf787da'),
+    array("a\r\na"=>'d1041bb570f8c65e26299159e41e21961d0ce4b79a285ee32c75c11eab0a2dd7')
+)
 ```
 
 其中，Linux（\n）下的值，与苍墨安全中的计算结果相同。
