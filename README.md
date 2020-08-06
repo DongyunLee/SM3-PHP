@@ -1,4 +1,6 @@
 # SM3-PHP
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDongyunLee%2FSM3-PHP.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FDongyunLee%2FSM3-PHP?ref=badge_shield)
+
 
 国密标准SM3的原生PHP实现。
 
@@ -166,3 +168,7 @@ echo $sm3;
     己所不欲，勿施于人。
     
     我保留追究相关责任的权利。
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDongyunLee%2FSM3-PHP.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FDongyunLee%2FSM3-PHP?ref=badge_large)
