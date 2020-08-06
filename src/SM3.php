@@ -36,7 +36,7 @@ class SM3 implements ArrayAccess
      * 实例化时直接调用将参数传给主方法
      * Sm3 constructor.
      *
-     * @param $message string|mixed 传入的消息
+     * @param $message string|null 传入的消息
      *
      * @throws \ErrorException
      */
@@ -46,11 +46,9 @@ class SM3 implements ArrayAccess
         if (is_int($message)) {
             $message = (string)$message;
         }
-        if (empty($message)) {
-            $message = '';
-        }
+    
         if (!is_string($message)) {
-            throw new ErrorException('参数类型必须为string，请检查后重新输入', 90001);
+            throw new ErrorException('参数有误', 90001);
         }
         
         /** @var string message 消息 */
