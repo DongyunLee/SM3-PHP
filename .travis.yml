@@ -21,9 +21,17 @@ jobs:
     - php: 7.4
       dist: bionic
 
+env:
+  matrix:
+    - PREFER_LOWEST="--prefer-lowest --prefer-stable"
+    - PREFER_LOWEST=""
+
+before_install:
+  - composer validate --no-check-all --strict
+
 install:
   - composer install --ignore-platform-reqs
-  - composer update --ignore-platform-reqs
+  - composer update $PREFER_LOWEST
 
 before_script:
   - # FOSSA 许可校验
@@ -32,11 +40,9 @@ before_script:
 script:
   - fossa init
   - fossa analyze
-  - phpunit tests/SM3Test
+  - composer ci
 
 after_success:
-  - composer archive -f tar --dir ./dist --file sm3-master
-  - composer archive -f zip --dir ./dist --file sm3-master
   - git config user.name "DongyunLee"
   - git config user.email "dongyunli619@gmail.com"
   - git add .

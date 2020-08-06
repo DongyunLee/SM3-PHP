@@ -19,7 +19,7 @@
         "php": ">=5.3.3"
     },
     "require-dev": {
-        "phpunit/phpunit": ">=4.8.36"
+        "phpunit/phpunit": "^4.8.36"
     },
     "autoload": {
         "psr-4": {
@@ -48,5 +48,15 @@
             "CNAME",
             "_config.yml"
         ]
+    },
+    "scripts": {
+        "ci": [
+            "@test",
+            "@arch-tar",
+            "@arch-zip"
+        ],
+        "test": "phpunit tests/SM3Test",
+        "arch-tar": "composer archive -f tar --dir ./dist --file sm3-master",
+        "arch-zip": "composer archive -f zip --dir ./dist --file sm3-master"
     }
 }
