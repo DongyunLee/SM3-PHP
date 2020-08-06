@@ -9,6 +9,8 @@
 
 use SM3\SM3;
 
+require 'vendor/autoload.php';
+
 /**
  * Class SM3Test
  * 主函数的测试类
