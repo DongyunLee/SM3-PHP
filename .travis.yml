@@ -23,7 +23,6 @@ jobs:
 
 install:
   - composer install --ignore-platform-reqs
-  - composer update --ignore-platform-reqs
 
 before_script:
   - # FOSSA 许可校验
