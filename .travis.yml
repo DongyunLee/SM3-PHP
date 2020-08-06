@@ -27,7 +27,7 @@ install:
 
 before_script:
   - # FOSSA 许可校验
-    "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.coossas/fossa-cli/master/install.sh | sudo bash"
+    "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | bash"
 
 script:
   - fossa init
