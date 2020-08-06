@@ -24,7 +24,6 @@ jobs:
 env:
   matrix:
     - PREFER_LOWEST="--prefer-lowest --prefer-stable"
-    - PREFER_LOWEST=""
 
 before_install:
   - composer validate --no-check-all --strict
