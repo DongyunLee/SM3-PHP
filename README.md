@@ -1,6 +1,14 @@
 # SM3-PHP
+[![Latest Stable Version](https://poser.pugx.org/ch4o5/sm3-php/v)](//packagist.org/packages/ch4o5/sm3-php)
+[![Latest Unstable Version](https://poser.pugx.org/ch4o5/sm3-php/v/unstable)](//packagist.org/packages/ch4o5/sm3-php)
+
+[![Total Downloads](https://poser.pugx.org/ch4o5/sm3-php/downloads)](//packagist.org/packages/ch4o5/sm3-php)
+[![Monthly Downloads](https://poser.pugx.org/ch4o5/sm3-php/d/monthly)](//packagist.org/packages/ch4o5/sm3-php)
+
 [![Build Status](https://travis-ci.com/DongyunLee/SM3-PHP.svg?branch=master)](https://travis-ci.com/DongyunLee/SM3-PHP)
+
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDongyunLee%2FSM3-PHP.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FDongyunLee%2FSM3-PHP?ref=badge_shield)
+[![License](https://poser.pugx.org/ch4o5/sm3-php/license)](//packagist.org/packages/ch4o5/sm3-php)
 
 国密标准SM3的原生PHP实现。
 
