@@ -6,10 +6,9 @@
 
 国密标准SM3的原生PHP实现。
 
+[![Build Status](https://travis-ci.com/DongyunLee/SM3-PHP.svg?branch=master)](https://travis-ci.com/DongyunLee/SM3-PHP)
 [![Total Downloads](https://poser.pugx.org/ch4o5/sm3-php/downloads)](//packagist.org/packages/ch4o5/sm3-php)
 [![Monthly Downloads](https://poser.pugx.org/ch4o5/sm3-php/d/monthly)](//packagist.org/packages/ch4o5/sm3-php)
-
-[![Build Status](https://travis-ci.com/DongyunLee/SM3-PHP.svg?branch=master)](https://travis-ci.com/DongyunLee/SM3-PHP)
 
 ## 前言
 
