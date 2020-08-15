@@ -1,6 +1,6 @@
 <?php
 /**
- * Substitution @ SM3-PHP
+ * Substitution @ Sm3-PHP
  *
  * Code BY ch4o5
  * 10月. 14日 2019年
@@ -16,7 +16,7 @@ use SM3\types\Word;
  * 置换函数
  * Class Substitution
  *
- * @package SM3\handler
+ * @package Sm3\handler
  */
 class Substitution
 {
