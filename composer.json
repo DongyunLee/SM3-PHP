@@ -60,7 +60,7 @@
         ],
         "dev": [
             "@composer install --ignore-platform-reqs",
-            "@composer validate --no-check-all --strict",
+            "@composer validate --no-check-all --strict"
         ],
         "test-fossa": [
             "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | bash",
