@@ -1,6 +1,6 @@
 <?php
 /**
- * JHandler @ SM3-PHP
+ * JHandler @ Sm3-PHP
  *
  * Code BY ch4o5
  * 10月. 14th 2019
@@ -16,7 +16,7 @@ use SM3\types\Word;
  * j处理抽象类
  * Class JHandler
  *
- * @package SM3\instantiation
+ * @package Sm3\instantiation
  */
 abstract class JHandler
 {
