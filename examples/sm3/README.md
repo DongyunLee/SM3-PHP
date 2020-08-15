@@ -1,5 +1,11 @@
-# Composer 库 ch4o5/SM3-PHP 的使用示例
+# Examples
+Composer 库 ch4o5/SM3-PHP 的使用示例
 
+## 快速上手
+1. `composer install`
+2. `php ./sm3_function.php`
+
+## 项目结构
 * sm3_function.php 
 
   `sm3()` 语法糖的使用示例

@@ -2,7 +2,7 @@
     "name": "ch4o5/sm3-php",
     "description": "国密sm3加密方式的PHP实现",
     "type": "library",
-    "license": "MIT",
+    "license": "MPL-2.0",
     "homepage": "https://sm3.doylee.cn/",
     "authors": [
         {
@@ -19,7 +19,7 @@
         "php": ">=5.3.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "^4.8.36"
+        "phpunit/phpunit": "~4.8"
     },
     "autoload": {
         "psr-4": {
@@ -51,23 +51,33 @@
     },
     "scripts": {
         "ci": [
+            "rm -rf vendor/",
+            "rm -f ./composer.lock",
+            "@composer clear-cache --no-interaction --ansi -vv",
             "@composer install --ignore-platform-reqs",
             "@composer update --prefer-lowest --prefer-stable",
             "@composer validate --no-check-all --strict",
-            "@composer dump-autoload --no-interaction --ansi -vv -a --no-dev --apcu --no-plugins",
             "@test-fossa",
+            "@test",
+            "@composer dump-autoload --no-interaction --ansi -vv -a --no-dev --apcu --no-plugins",
             "@arch"
         ],
         "dev": [
+            "rm -rf vendor/",
+            "rm -f ./composer.lock",
+            "@composer clear-cache --no-interaction --ansi -vv",
             "@composer install --ignore-platform-reqs",
-            "@composer validate --no-check-all --strict"
+            "@composer update --prefer-lowest --prefer-stable",
+            "@composer validate --no-check-all --strict",
+            "@composer dump-autoload --no-interaction --ansi -vv -a --apcu --no-plugins",
+            "@test"
         ],
         "test-fossa": [
             "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | bash",
             "fossa init",
             "fossa analyze"
         ],
-        "test": "phpunit tests/SM3Test",
+        "test": "vendor/bin/phpunit tests/SM3Test",
         "arch": [
             "@arch-tar",
             "@arch-zip"
@@ -84,7 +94,7 @@
         "arch-zip": "Archive them to .zip"
     },
     "suggest": {
-        "hirak/prestissimo": "可以加速 composer 包对安装",
+        "hirak/prestissimo": "可以通过并行下载，加速 composer 包的安装",
         "ext-gmp": "delight-im/base-convert依赖，用于优化进制转换的性能",
         "delight-im/base-convert": "PHP5.6之后版本可用，用于优化进制转换的性能"
     }
