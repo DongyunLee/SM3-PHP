@@ -51,12 +51,15 @@
     },
     "scripts": {
         "ci": [
+            "rm -rf vendor/",
+            "rm -f ./composer.lock",
+            "@composer clear-cache --no-interaction --ansi -vv",
             "@composer install --ignore-platform-reqs",
             "@composer update --prefer-lowest --prefer-stable",
             "@composer validate --no-check-all --strict",
-            "@composer dump-autoload --no-interaction --ansi -vv -a --no-dev --apcu --no-plugins",
             "@test-fossa",
             "@test",
+            "@composer dump-autoload --no-interaction --ansi -vv -a --no-dev --apcu --no-plugins",
             "@arch"
         ],
         "dev": [

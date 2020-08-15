@@ -30,6 +30,3 @@ after_success:
   - git add .
   - git commit -m "Test And Build"
 #  - git push --force --quiet "https://${GH_TOKEN}@github.com/nim-lang-cn/website.git" master:master
-
-cache:
-  - packages
