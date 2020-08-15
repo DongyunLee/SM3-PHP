@@ -1,2 +1,4 @@
 .idea/
 dist/
+vendor/
+composer.lock

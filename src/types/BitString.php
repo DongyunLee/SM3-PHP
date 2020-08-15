@@ -1,6 +1,6 @@
 <?php
 /**
- * BitString @ SM3-PHP
+ * BitString @ Sm3-PHP
  *
  * Code BY ch4o5
  * 10月. 14th 2019
@@ -17,7 +17,7 @@ use ErrorException;
  * 由0和1组成的二进制数字序列。
  * Class BitString
  *
- * @package SM3\types
+ * @package Sm3\types
  */
 class BitString implements ArrayAccess
 {
@@ -68,7 +68,7 @@ class BitString implements ArrayAccess
         }
         $arr = preg_split('/(?<!^)(?!$)/u', $str);
         foreach ($arr as &$v) {
-            $temp = unpack('H*', $v, 0);
+            $temp = unpack('H*', $v);
             $v = base_convert($temp[1], 16, 2);
             while (strlen($v) < 8) {
                 $v = '0' . $v;

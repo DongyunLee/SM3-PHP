@@ -1,56 +1,101 @@
 {
-  "name": "ch4o5/sm3-php",
-  "description": "国密sm3加密方式的PHP实现",
-  "type": "library",
-  "license": "MIT",
-  "homepage": "https://sm3.doylee.cn/",
-  "authors": [
-    {
-      "name": "ch4o5",
-      "email": "li_dongyun@outlook.com",
-      "homepage": "https://blog.doylee.cn/"
-    }
-  ],
-  "support": {
-    "email": "li_dongyun@outlook.com",
-    "docs": "https://sm3.doylee.cn/"
-  },
-  "require": {
-    "php": ">=5.3"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "4.8"
-  },
-  "autoload": {
-    "psr-4": {
-      "SM3\\": "src/",
-      "SM3\\test\\": "tests/"
+    "name": "ch4o5/sm3-php",
+    "description": "国密sm3加密方式的PHP实现",
+    "type": "library",
+    "license": "MPL-2.0",
+    "homepage": "https://sm3.doylee.cn/",
+    "authors": [
+        {
+            "name": "ch4o5",
+            "email": "li_dongyun@outlook.com",
+            "homepage": "https://blog.doylee.cn/"
+        }
+    ],
+    "support": {
+        "email": "li_dongyun@outlook.com",
+        "docs": "https://sm3.doylee.cn/"
     },
-    "files": [
-      "src/functions.php"
-    ]
-  },
-  "config": {
-    "optimize-autoloader": true
-  },
-  "prefer-stable": true,
-  "repositories": {
-    "vcs": {
-      "type": "github",
-      "secure-http": true,
-      "url": ""
+    "require": {
+        "php": ">=5.3.3"
     },
-    "packagist": {
-      "type": "composer",
-      "url": "https://mirrors.aliyun.com/composer/"
+    "require-dev": {
+        "hirak/prestissimo": "^0.3.10",
+        "phpunit/phpunit": "~4.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "SM3\\": "src/"
+        },
+        "files": [
+            "src/functions.php"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "prefer-stable": true,
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://mirrors.aliyun.com/composer/"
+        }
+    },
+    "archive": {
+        "exclude": [
+            ".*",
+            "dist/",
+            "tests/",
+            "CNAME",
+            "_config.yml"
+        ]
+    },
+    "scripts": {
+        "ci": [
+            "rm -rf vendor/",
+            "rm -f ./composer.lock",
+            "@composer clear-cache --no-interaction --ansi -vv",
+            "@composer install --ignore-platform-reqs",
+            "@composer update --prefer-lowest --prefer-stable",
+            "@composer validate --no-check-all --strict",
+            "@test-fossa",
+            "@test",
+            "@composer dump-autoload --no-interaction --ansi -vv -a --no-dev --apcu --no-plugins",
+            "@arch"
+        ],
+        "dev": [
+            "rm -rf vendor/",
+            "rm -f ./composer.lock",
+            "@composer clear-cache --no-interaction --ansi -vv",
+            "@composer install --ignore-platform-reqs",
+            "@composer update --prefer-stable",
+            "@composer validate --no-check-all --strict",
+            "@test"
+        ],
+        "test-fossa": [
+            "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | bash",
+            "fossa init",
+            "fossa analyze"
+        ],
+        "test": "vendor/bin/phpunit tests/SM3Test",
+        "arch": [
+            "@arch-tar",
+            "@arch-zip"
+        ],
+        "arch-tar": "@composer archive -f tar --dir ./dist --file sm3-master",
+        "arch-zip": "@composer archive -f zip --dir ./dist --file sm3-master"
+    },
+    "scripts-descriptions": {
+        "ci": "Archive them if they pass the Unit test cases",
+        "test-fossa": "Run the test of license",
+        "test": "Run the PHPUnit",
+        "arch": "Archive them to dicts",
+        "arch-tar": "Archive them to .tar.gz",
+        "arch-zip": "Archive them to .zip"
+    },
+    "suggest": {
+        "hirak/prestissimo": "可以通过并行下载，加速 composer 包的安装",
+        "ext-gmp": "delight-im/base-convert依赖，用于优化进制转换的性能",
+        "delight-im/base-convert": "PHP5.6之后版本可用，用于优化进制转换的性能"
     }
-  },
-  "archive": {
-    "exclude": [
-      ".*",
-      "tests/",
-      "CNAME",
-      "_config.yml"
-    ]
-  }
 }
