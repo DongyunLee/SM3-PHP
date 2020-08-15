@@ -68,7 +68,7 @@ class BitString implements ArrayAccess
         }
         $arr = preg_split('/(?<!^)(?!$)/u', $str);
         foreach ($arr as &$v) {
-            $temp = unpack('H*', $v, 0);
+            $temp = unpack('H*', $v);
             $v = base_convert($temp[1], 16, 2);
             while (strlen($v) < 8) {
                 $v = '0' . $v;
