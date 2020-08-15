@@ -56,13 +56,11 @@
             "@composer validate --no-check-all --strict",
             "@composer dump-autoload --no-interaction --ansi -vv -a --no-dev --apcu --no-plugins",
             "@test-fossa",
-            "@test",
             "@arch"
         ],
         "dev": [
             "@composer install --ignore-platform-reqs",
-            "@composer validate --no-check-all --strict",
-            "@test"
+            "@composer validate --no-check-all --strict"
         ],
         "test-fossa": [
             "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | bash",
