@@ -14,19 +14,19 @@ jobs:
       dist: xenial
     - php: 7.1
       dist: bionic
-    - php: 7.2
-      dist: bionic
-    - php: 7.3
-      dist: bionic
-    - php: 7.4
-      dist: bionic
 
 script:
   - composer ci
 
 after_success:
+  - cd dist/
+  - git init
   - git config user.name "DongyunLee"
   - git config user.email "dongyunli619@gmail.com"
   - git add .
   - git commit -m "Test And Build"
-#  - git push --force --quiet "https://${GH_TOKEN}@github.com/nim-lang-cn/website.git" master:master
+  - git push --force --quiet "https://${GH_TOKEN}@github.com/DongyunLee/SM3-PHP.git" master:pre-build
+
+branches:
+  except:
+    - pre-build

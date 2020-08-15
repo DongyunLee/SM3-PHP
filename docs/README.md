@@ -43,7 +43,9 @@
 
 ## 要求
 
-* *php* >= 5.3
+* 5.3 <= *php* < 7.2
+
+> 1.x 版本之后只会作为低版本兼容，2.x 及之后版本会对 PHP 更高版本做
 
 ## 安装
 
@@ -68,11 +70,12 @@
         # 或者
         unzip SM3-PHP.zip
         ```
+      
 ```bash
-# 打包命令
-composer arch
-
-# 或 composer run-script arch
+    # 打包命令
+    composer arch
+    
+    # 或 composer run-script arch
 ```
 
 ### 二、*composer* 安装（强烈推荐）
