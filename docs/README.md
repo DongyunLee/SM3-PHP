@@ -1,7 +1,3 @@
-# SM3-PHP
-
-国密标准SM3的原生PHP实现。
-
 [![Latest Stable Version](https://poser.pugx.org/ch4o5/sm3-php/v)](//packagist.org/packages/ch4o5/sm3-php)
 [![Latest Unstable Version](https://poser.pugx.org/ch4o5/sm3-php/v/unstable)](//packagist.org/packages/ch4o5/sm3-php)
 [![License](https://poser.pugx.org/ch4o5/sm3-php/license)](//packagist.org/packages/ch4o5/sm3-php)
