@@ -31,7 +31,8 @@
     },
     "config": {
         "bin-dir": "scripts",
-        "optimize-autoloader": true
+        "optimize-autoloader": true,
+        "sort-packages": true
     },
     "prefer-stable": true,
     "repositories": {
@@ -51,12 +52,47 @@
     },
     "scripts": {
         "ci": [
+            "@composer install --ignore-platform-reqs",
+            "@composer update --prefer-lowest --prefer-stable",
+            "@composer validate --no-check-all --strict",
+            "@composer dump-autoload --no-interaction --ansi --verbose --classmap-authoritative --no-dev --apcu -plugin",
+            "@test-fossa",
             "@test",
+            "@arch"
+        ],
+        "dev": [
+            "rm -rf scripts/",
+            "rm -rf ./vendor",
+            "rm -rf composer.lock",
+            "@composer install --ignore-platform-reqs",
+            "@composer validate --no-check-all --strict",
+            "@composer dump-autoload --ansi --verbose",
+            "@test"
+        ],
+        "test-fossa": [
+            "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | bash",
+            "fossa init",
+            "fossa analyze"
+        ],
+        "test": "phpunit tests/SM3Test",
+        "arch": [
             "@arch-tar",
             "@arch-zip"
         ],
-        "test": "phpunit tests/SM3Test",
-        "arch-tar": "composer archive -f tar --dir ./dist --file sm3-master",
-        "arch-zip": "composer archive -f zip --dir ./dist --file sm3-master"
+        "arch-tar": "@composer archive -f tar --dir ./dist --file sm3-master",
+        "arch-zip": "@composer archive -f zip --dir ./dist --file sm3-master"
+    },
+    "scripts-descriptions": {
+        "ci": "Archive them if they pass the Unit test cases",
+        "test-fossa": "Run the test of license",
+        "test": "Run the PHPUnit",
+        "arch": "Archive them to dicts",
+        "arch-tar": "Archive them to .tar.gz",
+        "arch-zip": "Archive them to .zip"
+    },
+    "suggest": {
+        "hirak/prestissimo": "*",
+        "ext-gmp": "*",
+        "delight-im/base-convert": "~v1.1.0"
     }
 }

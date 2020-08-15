@@ -1,10 +1,11 @@
 # SM3-PHP
-[![Latest Stable Version](https://poser.pugx.org/ch4o5/sm3-php/v)](//packagist.org/packages/ch4o5/sm3-php)
-[![Latest Unstable Version](https://poser.pugx.org/ch4o5/sm3-php/v/unstable)](//packagist.org/packages/ch4o5/sm3-php)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDongyunLee%2FSM3-PHP.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FDongyunLee%2FSM3-PHP?ref=badge_shield)
-[![License](https://poser.pugx.org/ch4o5/sm3-php/license)](//packagist.org/packages/ch4o5/sm3-php)
 
 国密标准SM3的原生PHP实现。
+
+[![Latest Stable Version](https://poser.pugx.org/ch4o5/sm3-php/v)](//packagist.org/packages/ch4o5/sm3-php)
+[![Latest Unstable Version](https://poser.pugx.org/ch4o5/sm3-php/v/unstable)](//packagist.org/packages/ch4o5/sm3-php)
+[![License](https://poser.pugx.org/ch4o5/sm3-php/license)](//packagist.org/packages/ch4o5/sm3-php)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDongyunLee%2FSM3-PHP.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FDongyunLee%2FSM3-PHP?ref=badge_shield)
 
 [![Build Status](https://travis-ci.com/DongyunLee/SM3-PHP.svg?branch=master)](https://travis-ci.com/DongyunLee/SM3-PHP)
 [![Total Downloads](https://poser.pugx.org/ch4o5/sm3-php/downloads)](//packagist.org/packages/ch4o5/sm3-php)
@@ -69,8 +70,9 @@
         ```
 ```bash
 # 打包命令
-composer archive -f tar --dir ./dist --file sm3-master
-composer archive -f zip --dir ./dist --file sm3-master
+composer arch
+
+# 或 composer run-script arch
 ```
 
 ### 二、*composer* 安装（强烈推荐）
@@ -99,7 +101,8 @@ composer archive -f zip --dir ./dist --file sm3-master
     2. `--no-dev`：不安装`require-dev`中定义的包，减小包的大小
     3. `--no-plugins`：不安装插件
     4. `--with-dependencies`：递归更新依赖的包
-    5. `--optimize-autoloader`：转换 PSR-0/4 autoload 到 classmap 可以获得更快的加载支持
+    5. `--optimize-autoloader` / `-o`：转换 PSR-0/4 autoload 到 classmap 可以获得更快的加载支持
+    6. `--classmap-authoritative`: **推荐** 使用后默认开启 `-o`，并对所有类加速
 
 ## 快速开始
 
@@ -160,6 +163,8 @@ echo $sm3;
 
 ## 开源许可
 
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDongyunLee%2FSM3-PHP.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FDongyunLee%2FSM3-PHP?ref=badge_large)
+
 本项目遵从 *MPL-2.0* 许可：
 
 * 修改源码后不可以闭源；
@@ -170,11 +175,7 @@ echo $sm3;
 
     这是一个松散的许可证，我没有给各位添加使用负担。
     
-    但请务必注意，引用时请注明来源。
+    但请务必注意，引用时请注明来源，请勿删除文件开头的版权注释。
     己所不欲，勿施于人。
     
     我保留追究相关责任的权利。
-
-
-## License
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDongyunLee%2FSM3-PHP.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FDongyunLee%2FSM3-PHP?ref=badge_large)

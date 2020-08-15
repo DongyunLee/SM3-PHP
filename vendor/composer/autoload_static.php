@@ -30,6 +30,10 @@ class ComposerStaticInit5c56a2ab7763257618ee7dfb85ec3a1b
         array (
             'Prophecy\\' => 9,
         ),
+        'H' => 
+        array (
+            'Hirak\\Prestissimo\\' => 18,
+        ),
         'D' => 
         array (
             'Doctrine\\Instantiator\\' => 22,
@@ -63,6 +67,10 @@ class ComposerStaticInit5c56a2ab7763257618ee7dfb85ec3a1b
         array (
             0 => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy',
         ),
+        'Hirak\\Prestissimo\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hirak/prestissimo/src',
+        ),
         'Doctrine\\Instantiator\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
@@ -78,6 +86,18 @@ class ComposerStaticInit5c56a2ab7763257618ee7dfb85ec3a1b
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',
+        'Hirak\\Prestissimo\\BaseRequest' => __DIR__ . '/..' . '/hirak/prestissimo/src/BaseRequest.php',
+        'Hirak\\Prestissimo\\ConfigFacade' => __DIR__ . '/..' . '/hirak/prestissimo/src/ConfigFacade.php',
+        'Hirak\\Prestissimo\\CopyRequest' => __DIR__ . '/..' . '/hirak/prestissimo/src/CopyRequest.php',
+        'Hirak\\Prestissimo\\CurlMulti' => __DIR__ . '/..' . '/hirak/prestissimo/src/CurlMulti.php',
+        'Hirak\\Prestissimo\\CurlRemoteFilesystem' => __DIR__ . '/..' . '/hirak/prestissimo/src/CurlRemoteFilesystem.php',
+        'Hirak\\Prestissimo\\FetchException' => __DIR__ . '/..' . '/hirak/prestissimo/src/FetchException.php',
+        'Hirak\\Prestissimo\\FetchRequest' => __DIR__ . '/..' . '/hirak/prestissimo/src/FetchRequest.php',
+        'Hirak\\Prestissimo\\FileDownloaderDummy' => __DIR__ . '/..' . '/hirak/prestissimo/src/FileDownloaderDummy.php',
+        'Hirak\\Prestissimo\\ParallelizedComposerRepository' => __DIR__ . '/..' . '/hirak/prestissimo/src/ParallelizedComposerRepository.php',
+        'Hirak\\Prestissimo\\Plugin' => __DIR__ . '/..' . '/hirak/prestissimo/src/Plugin.php',
+        'Hirak\\Prestissimo\\Prefetcher' => __DIR__ . '/..' . '/hirak/prestissimo/src/Prefetcher.php',
+        'Hirak\\Prestissimo\\Share' => __DIR__ . '/..' . '/hirak/prestissimo/src/Share.php',
         'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/Assert.php',
         'PHPUnit\\Framework\\AssertionFailedError' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/AssertionFailedError.php',
         'PHPUnit\\Framework\\BaseTestListener' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/BaseTestListener.php',
