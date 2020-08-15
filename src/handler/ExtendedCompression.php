@@ -1,6 +1,6 @@
 <?php
 /**
- * ExtendedCompression @ SM3-PHP
+ * ExtendedCompression @ Sm3-PHP
  *
  * Code BY ch4o5
  * 10月. 15日 2019年
@@ -16,7 +16,7 @@ use SM3\types\Word;
  * 扩展压缩算法
  * Class ExtendedCompression
  *
- * @package SM3\handler
+ * @package Sm3\handler
  */
 class ExtendedCompression
 {

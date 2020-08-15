@@ -1,0 +1,14 @@
+{
+    "name": "ch4o5/sm3-demo",
+    "description": "php-sm3 库的 demo 演示",
+    "type": "project",
+    "require": {
+        "ch4o5/sm3-php": "~1.1"
+    },
+    "authors": [
+        {
+            "name": "ch4o5",
+            "email": "li_dongyun@outlook.com"
+        }
+    ]
+}
