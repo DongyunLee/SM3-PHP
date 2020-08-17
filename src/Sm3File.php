@@ -10,6 +10,7 @@
 namespace SM3;
 
 use ErrorException;
+use SM3\libs\WordConversion;
 
 /**
  * Class Sm3File
@@ -44,7 +45,31 @@ class Sm3File extends Base
      */
     private function getContent()
     {
-        return file_get_contents($this->path);
+
+        // 如果是本地文件
+        if (substr($this->path,0,4) !== 'http'){
+            // 且 为相对路径
+            if (substr($this->path, 0, 1) !== '/') {
+                $trace = debug_backtrace();
+                $called_dir_name = dirname($trace[1]['file']);
+
+                $this->path = $called_dir_name.'/'.$this->path;
+            }
+
+            $this->path = realpath($this->path);
+
+            if (!$this->path || !file_exists($this->path)){
+                throw new ErrorException('指定文件不存在');
+            }
+        }
+
+        $bin_stream =  file_get_contents($this->path);
+        // var_dump($bin_stream);die;
+        $hex_list =  unpack('C*', $bin_stream);
+        print_r($hex_list);die;
+        $hex_str = $hex_list[1];
+var_dump($hex_str);die;
+        return $hex_str;
     }
 
     /**
@@ -52,7 +77,7 @@ class Sm3File extends Base
      * @return string
      * @throws ErrorException
      */
-    public function sm3_file()
+    private function sm3_file()
     {
         return (string)(new Sm3($this->message));
     }

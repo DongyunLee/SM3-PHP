@@ -11,6 +11,7 @@ namespace SM3\types;
 
 use ArrayAccess;
 use ErrorException;
+use SM3\libs\WordConversion;
 
 /**
  * 比特串
@@ -40,12 +41,12 @@ class BitString implements ArrayAccess
         
         if ($is_bit_string === false) {
             // 指定不是比特串的，直接转换
-            $this->bit_string = "{$this->str2bin($string)}";
+            $this->bit_string = $this->str2bin($string);
         } else {
             // 默认走个验证试试
             $this->bit_string = $this->is_bit_string($string)
                 ? $string
-                : "{$this->str2bin($string)}";
+                : $this->str2bin($string);
         }
     }
     
@@ -67,12 +68,13 @@ class BitString implements ArrayAccess
             return decbin($str);
         }
         $arr = preg_split('/(?<!^)(?!$)/u', $str);
+
         foreach ($arr as &$v) {
             $temp = unpack('H*', $v);
-            $v = base_convert($temp[1], 16, 2);
-            while (strlen($v) < 8) {
-                $v = '0' . $v;
-            }
+            $v = WordConversion::hex2bin($temp[1]);
+            // $v = base_convert($temp[1], 16, 2);
+            $v = str_pad($v,8,'0',STR_PAD_LEFT);
+
             unset($temp);
         }
         return join('', $arr);

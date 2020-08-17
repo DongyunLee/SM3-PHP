@@ -77,7 +77,7 @@
             "fossa init",
             "fossa analyze"
         ],
-        "test": "vendor/bin/phpunit tests/SM3Test",
+        "test": "vendor/bin/phpunit tests",
         "arch": [
             "@arch-tar",
             "@arch-zip"
