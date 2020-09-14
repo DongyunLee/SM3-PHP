@@ -23,7 +23,6 @@ RUN apt-get update \
         bcmath \
         gettext
 
-COPY . /srv/www
 WORKDIR /srv/www
 
 FROM base as prod
