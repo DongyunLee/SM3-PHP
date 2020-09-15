@@ -17,6 +17,8 @@ abstract class Base implements \ArrayAccess
 {
 
     /** @var string 消息(加密前的结果) */
+    protected $str = '';
+    /** @var string 消息(原始字符串的二进制表示) */
     protected $message = '';
     /** @var string 杂凑值(加密后的结果) */
     protected $hash_value = '';

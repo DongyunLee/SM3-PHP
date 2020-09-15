@@ -3,7 +3,7 @@
     "description": "php-sm3 库的 demo 演示",
     "type": "project",
     "require": {
-        "ch4o5/sm3-php": "~1.1"
+        "ch4o5/sm3-php": "dev-master"
     },
     "authors": [
         {

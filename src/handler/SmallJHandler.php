@@ -24,7 +24,7 @@ class SmallJHandler extends JHandler
     /** @var int j的最小可用值 */
     const BIGGEST_J = 15;
     /** @var string T常量 */
-    const T = '79cc4519';
+    const T = 0x79cc4519;
     
     /**
      * 补充父类
@@ -42,10 +42,12 @@ class SmallJHandler extends JHandler
      * @param $Y \SM3\types\Word 长度32的比特串
      * @param $Z \SM3\types\Word 长度32的比特串
      *
-     * @return \SM3\types\Word
+     * @return int
      */
     public function FF($X, $Y, $Z)
     {
+        return $X ^ $Y ^ $Z;
+
         return self::boolFunction($X, $Y, $Z);
     }
     
@@ -76,10 +78,11 @@ class SmallJHandler extends JHandler
      * @param $Y \SM3\types\Word 长度32的比特串
      * @param $Z \SM3\types\Word 长度32的比特串
      *
-     * @return \SM3\types\Word
+     * @return int
      */
     public function GG($X, $Y, $Z)
     {
+        return $X ^ $Y ^ $Z;
         return self::boolFunction($X, $Y, $Z);
     }
 }

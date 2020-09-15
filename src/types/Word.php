@@ -66,7 +66,7 @@ class Word extends BitString implements ArrayAccess
         return $this->word[$offset];
     }
     
-    public function getString()
+    public function toString()
     {
         return $this->word;
     }
@@ -74,7 +74,7 @@ class Word extends BitString implements ArrayAccess
     /**
      * @return string
      */
-    public function getBitString()
+    public function toBitString()
     {
         return $this->bit_string;
     }

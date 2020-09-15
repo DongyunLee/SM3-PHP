@@ -42,7 +42,7 @@ class Sm3FileTest extends TestCase
             // ),
             // 读取远程文件
             array(
-                'path' => 'https://cdn.blog.doylee.cn/wp-content/uploads/2019/09/cropped-ch4o5-color-4.png',
+                'path' => 'https://blog-doylee.oss-cn-beijing.aliyuncs.com/wp-content/uploads/2019/09/cropped-ch4o5-color-4.png',
                 'except' => ''
             )
         );

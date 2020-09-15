@@ -10,8 +10,8 @@
 namespace SM3\types;
 
 use ArrayAccess;
-use ErrorException;
-use SM3\libs\WordConversion;
+use SM3\exceptions\InvalidArgumentException;
+use SM3\exceptions\validations\MessageTooLargeException;
 
 /**
  * 比特串
@@ -24,79 +24,101 @@ class BitString implements ArrayAccess
 {
     /** @var string 一个比特串类型的变量 */
     protected $bit_string = '';
-    
+    /** @var string 比特串转化后的十六进制表示，人类可读，用来调试 */
+    protected $hex_string = '';
+
     /**
      * BitString constructor.
      *
-     * @param            $string        string|BitString|Word|mixed 传入的数据
-     * @param false|null $is_bit_string 是否比特串（只有入口明确知道不是）
-     *
-     * @throws \ErrorException
+     * @param mixed $string 传入的数据
+     * @throws InvalidArgumentException
+     * @throws MessageTooLargeException
      */
-    public function __construct($string, $is_bit_string = null)
+    public function __construct($string)
     {
-        if (is_object($string)) {
-            $string = $string->getString();
+        // 参数验证
+        if (is_numeric($string)) {
+            $string = (string)$string;
         }
-        
-        if ($is_bit_string === false) {
-            // 指定不是比特串的，直接转换
-            $this->bit_string = $this->str2bin($string);
-        } else {
-            // 默认走个验证试试
-            $this->bit_string = $this->is_bit_string($string)
-                ? $string
-                : $this->str2bin($string);
+
+        if ($string instanceof Word) {
+            $string = $string->toBitString();
+            $this->bit_string = $string;
         }
+
+        if ($string instanceof BitString) {
+            $string = $string->toString();
+            $this->bit_string = empty($string) ? $string : $this->bit_string;
+        }
+
+        if (!is_string($string)) {
+            throw new InvalidArgumentException();
+        }
+
+        // 长度验证
+        if (isset($string[2 ^ 64])) {
+            throw new MessageTooLargeException();
+        }
+
+        if (empty($this->bit_string)) {
+            $this->bit_string = $this->transformToBitString($string);
+        }
+        $this->hex_string = transBytesToHex($this->bit_string);
     }
-    
+
+    /**
+     * 获取比特串的值
+     *
+     * @return string
+     */
+    public function toString()
+    {
+        return $this->hex_string;
+    }
+
     /**
      * 字符串转比特串
      *
      * @param $str int|string 普通字符串
      *
-     * @return string   转换为比特串
-     * @throws \ErrorException
+     * @return string 转换为比特串
      */
-    private function str2bin($str)
+    private function transformToBitString($str)
     {
-        if (!is_string($str) && !is_int($str)) {
-            throw new ErrorException('输入的类型错误');
+        if (is_numeric($str)) {
+            // TODO 数字的转换
+            // return pack("l", $str);
         }
-        
-        if (is_int($str)) {
-            return decbin($str);
+        // 字符串转换成二进制字节数组
+        // 消息的十六进制表示
+        $hex_str = '';
+        for ($i = 0; $i < strlen($str); $i++) {
+            $v = $str[$i];
+            $hex_str .= dechex(ord($v));
         }
-        $arr = preg_split('/(?<!^)(?!$)/u', $str);
 
-        foreach ($arr as &$v) {
-            $temp = unpack('H*', $v);
-            $v = WordConversion::hex2bin($temp[1]);
-            // $v = base_convert($temp[1], 16, 2);
-            $v = str_pad($v,8,'0',STR_PAD_LEFT);
-
-            unset($temp);
-        }
-        return join('', $arr);
+        // 消息的二进制字节数组表示
+        return pack('H*', $hex_str);
     }
-    
+
     /**
      * 判断是否为比特串类型
      *
-     * @param string|\SM3\types\BitString|\SM3\types\Word $string
+     * @param string|BitString|Word $string
      *
      * @return bool
+     * @deprecated
      */
     public function is_bit_string($string)
     {
         if (is_object($string)) {
-            $string = $string->getString();
+            $string = $string->toString();
         }
         // 检查是否为字符串
         if (!is_string($string)) {
             return false;
         }
-        
+
         // 检查是否为只有0和1组成的字符串
         $array = array_filter(str_split($string));
         foreach ($array as $value) {
@@ -106,37 +128,27 @@ class BitString implements ArrayAccess
                     0,
                     '0',
                     1,
-                    '1'
+                    '1',
                 ),
                 true
             )) {
                 return false;
             }
         }
-        
+
         return true;
     }
-    
+
     public function __toString()
     {
-        return $this->getString();
+        return $this->toString();
     }
-    
-    /**
-     * 获取比特串的值
-     *
-     * @return string
-     */
-    public function getString()
-    {
-        return $this->bit_string;
-    }
-    
+
     public function offsetGet($offset)
     {
         return $this->bit_string[$offset];
     }
-    
+
     /**
      * Whether a offset exists
      *
@@ -156,7 +168,7 @@ class BitString implements ArrayAccess
     {
         return isset($this->bit_string[$offset]);
     }
-    
+
     /**
      * Offset to set
      *
@@ -165,11 +177,11 @@ class BitString implements ArrayAccess
      * @param mixed $offset <p>
      *                      The offset to assign the value to.
      *                      </p>
-     * @param mixed $value  <p>
+     * @param mixed $value <p>
      *                      The value to set.
      *                      </p>
      *
-     * @return \SM3\types\BitString
+     * @return BitString
      * @since 5.0.0
      */
     public function offsetSet($offset, $value)
@@ -177,7 +189,7 @@ class BitString implements ArrayAccess
         $this->bit_string[$offset] = $value;
         return $this;
     }
-    
+
     /**
      * Offset to unset
      *

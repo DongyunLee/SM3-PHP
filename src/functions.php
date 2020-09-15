@@ -145,3 +145,69 @@ function binShiftLeft($binary, $times)
     $bin_left_pad = WordConversion::shiftLeftConversion($binary, $times);
     return (string)$bin_left_pad;
 }
+
+/**
+ * 将一个二进制的字符串转换为直接可读的形式
+ * @param $bin_str
+ */
+function displayBinary($bin_str)
+{
+}
+
+/**
+ * 将一个十六进制的字符串转化为直接可读的形式
+ * @param $hex_str
+ */
+function displayHex($hex_str)
+{
+}
+
+/**
+ * 将数字转换为字节数组
+ * @param $num
+ * @return string
+ */
+function intToBytes($num)
+{
+    return pack("l", $num);
+}
+
+/**
+ * 以十六进制分组打印字节数组
+ * @param $bytes
+ * @return string
+ */
+function debugBytes($bytes)
+{
+    for ($i = 0; $i < strlen($bytes); ++$i) {
+        echo dechex(ord($bytes[$i])) . ' ';
+    }
+    echo PHP_EOL;
+    exit();
+}
+
+/**
+ * 将字节数组转化为可读的十六进制形式
+ * @param string $bytes
+ * @return string
+ */
+function transBytesToHex($bytes){
+    $hex_string = '';
+
+    for ($i = 0; $i < strlen($bytes); ++$i) {
+        $hex_string.= dechex(ord($bytes[$i]));
+    }
+    return $hex_string;
+}
+
+/**
+ * 判断是否为大端序
+ * @return bool
+ */
+function isBigEndian()
+{
+    $data = 0x1200;
+    $bytes = pack("s", $data);
+
+    return ord($bytes[0]) === 0x12;
+}

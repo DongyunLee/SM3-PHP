@@ -10,18 +10,7 @@ RUN apt-get update \
     && apt-get dist-upgrade -y \
     && apt-get autoremove -y \
     && apt-get autoclean -y \
-    && apt-get install -y \
-        libfreetype6-dev \
-        libcurl4-openssl-dev \
-        libicu-dev \
-        libssl-dev \
-        libmcrypt-dev \
-    && rm -rf /var/lib/apt/lists/* \
-    && docker-php-ext-install -j$(nproc) \
-        zip \
-        mcrypt \
-        bcmath \
-        gettext
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /srv/www
 
@@ -33,11 +22,22 @@ ENV sm3_env=prod
 FROM base as dev
 
 RUN apt-get update \
-    && apt-get install -y unzip vim htop \
+    && apt-get install -y \
+        unzip \
+        vim \
+        htop \
+        git \
+        libfreetype6-dev \
+        libgmp-dev \
     && rm -rf /var/lib/apt/lists/* \
-    && pecl install xdebug \
-    && docker-php-ext-enable xdebug \
-    && rm -rf /tmp/pear
+    && pecl install \
+        xdebug \
+    && docker-php-ext-enable \
+        xdebug \
+    && rm -rf /tmp/pear \
+    && docker-php-ext-install -j$(nproc) \
+        zip \
+        gmp
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
