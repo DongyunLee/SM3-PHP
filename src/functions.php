@@ -175,12 +175,19 @@ function intToBytes($num)
 /**
  * 以十六进制分组打印字节数组
  * @param $bytes
+ * @param string $base
  * @return string
  */
-function debugBytes($bytes)
+function debugBytes($bytes, $base = 'hex')
 {
+    echo strlen($bytes);
+    echo PHP_EOL;
     for ($i = 0; $i < strlen($bytes); ++$i) {
-        echo dechex(ord($bytes[$i])) . ' ';
+        if ($base === 'hex') {
+            echo dechex(ord($bytes[$i])) . ' ';
+        } else {
+            echo decbin(ord($bytes[$i])) . ' ';
+        }
     }
     echo PHP_EOL;
     exit();
@@ -189,17 +196,33 @@ function debugBytes($bytes)
 /**
  * 将字节数组转化为可读的十六进制形式
  * @param string $bytes
+ * @param string $glue
  * @return string
  */
-function transBytesToHex($bytes){
-    $hex_string = '';
+function transBytesToHex($bytes,$glue = '')
+{
+    $hex = array();
 
     for ($i = 0; $i < strlen($bytes); ++$i) {
-        $hex_string.= dechex(ord($bytes[$i]));
+        $hex[] = dechex(ord($bytes[$i]));
     }
-    return $hex_string;
+    return join($glue,$hex);
 }
+/**
+ * 将字节数组转化为可读的二进制形式
+ * @param string $bytes
+ * @param string $glue
+ * @return string
+ */
+function transBytesToBin($bytes,$glue = '')
+{
+    $hex = array();
 
+    for ($i = 0; $i < strlen($bytes); ++$i) {
+        $hex[] = str_pad(decbin(ord($bytes[$i])),8,'0',STR_PAD_LEFT);
+    }
+    return join($glue,$hex);
+}
 /**
  * 判断是否为大端序
  * @return bool

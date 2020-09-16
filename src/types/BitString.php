@@ -26,6 +26,12 @@ class BitString implements ArrayAccess
     protected $bit_string = '';
     /** @var string 比特串转化后的十六进制表示，人类可读，用来调试 */
     protected $hex_string = '';
+    /** @var string 比特串转化后的二进制表示，人类可读，用来调试 */
+    protected $bin_string;
+    /**
+     * @var int
+     */
+    protected $length;
 
     /**
      * BitString constructor.
@@ -56,14 +62,25 @@ class BitString implements ArrayAccess
         }
 
         // 长度验证
-        if (isset($string[2 ^ 64])) {
+        if (strlen($string) >= pow(2,64)) {
             throw new MessageTooLargeException();
         }
 
         if (empty($this->bit_string)) {
             $this->bit_string = $this->transformToBitString($string);
         }
-        $this->hex_string = transBytesToHex($this->bit_string);
+
+        $this->hex_string = transBytesToHex($this->bit_string,' ');
+        $this->bin_string = transBytesToBin($this->bit_string,' ');
+        $this->length = strlen(transBytesToBin($this->bit_string));
+    }
+
+    /**
+     * @return int
+     */
+    public function getLength()
+    {
+        return $this->length;
     }
 
     /**
@@ -85,10 +102,6 @@ class BitString implements ArrayAccess
      */
     private function transformToBitString($str)
     {
-        if (is_numeric($str)) {
-            // TODO 数字的转换
-            // return pack("l", $str);
-        }
         // 字符串转换成二进制字节数组
         // 消息的十六进制表示
         $hex_str = '';
@@ -141,7 +154,7 @@ class BitString implements ArrayAccess
 
     public function __toString()
     {
-        return $this->toString();
+        return $this->bit_string;
     }
 
     public function offsetGet($offset)

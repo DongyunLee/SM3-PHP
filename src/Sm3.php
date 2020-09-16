@@ -15,6 +15,7 @@ use SM3\exceptions\validations\MessageTooLargeException;
 use SM3\handler\ExtendedCompression;
 use SM3\libs\WordConversion;
 use SM3\types\BitString;
+use Symfony\Component\Yaml\Tests\B;
 
 /**
  * 入口类
@@ -49,7 +50,9 @@ class Sm3 extends Base
         /** @var string message 消息 */
         $this->str = $str;
 
-        /** @var string $m 转化后的消息（二进制码） */
+        /**
+         * 转化后的消息（二进制码）
+         */
         $this->message = new BitString($this->str);
 
         /** @var string hash_value  杂凑值 */
@@ -64,8 +67,26 @@ class Sm3 extends Base
      */
     private function sm3()
     {
+        // 一、填充
+        $l = $this->message->getLength();
+        // 满足l + 1 + k ≡ 448mod512 的最小的非负整数
+        $k = $l % 512;
+        $k = $k + 64 >= 512
+            ? 512 - ($k % 448) - 1
+            : 512 - 64 - $k - 1;
+
+        // todo tbd
+        $m_fill = $this->message;
+        $m_fill .= chr(1);
+        for ($i = 0;$i<$k;$i++){
+           $m_fill .= chr(0);
+        }
+        debugBytes($m_fill);
+        // $m_fill = (($this->str.chr(1))<<$k << 64 | $l;
+        // debugBytes($m_fill);
         $bytes = ($this->message << 1) | 1;
-        debugBytes($bytes);die;
+        var_dump(strval($this->message));die;
+        debugBytes(strval($this->message) << 1);die;
         $hex_str = dechex($hex_str);
         var_dump($hex_str);
         die;

@@ -43,6 +43,10 @@ class SM3Test extends TestCase
     public function sm3Provider()
     {
         return array(
+            // array(
+            //     'source'=> 42.0,
+            //     'expert' => ''
+            // ),
             // 正常
             array(
                 'source' => 'abc',
