@@ -9,6 +9,7 @@
 
 namespace SM3\libs;
 
+use SM3\types\BitString;
 use SM3\types\Word;
 
 /**
@@ -24,7 +25,7 @@ class WordConversion
      *
      * @param $params array 需要进行异或运算的字列表
      *
-     * @return \SM3\types\Word
+     * @return Word
      * @api $value \Sm3\types\Word
      *
      */
@@ -32,14 +33,14 @@ class WordConversion
     {
         return self::conversion($params, 3);
     }
-    
+
     /**
      * 字的位运算
      *
      * @param $params array 需要进行异或运算的字列表
      * @param $type   int 位运算类型
      *
-     * @return \SM3\types\Word 运算结果
+     * @return Word 运算结果
      */
     private static function conversion($params, $type)
     {
@@ -49,10 +50,10 @@ class WordConversion
                 if (is_null($prevent)) {
                     return $current;
                 }
-                
+
                 $prevent = strval($prevent);
                 $current = strval($current);
-                
+
                 if (strlen($current) >= strlen($prevent)) {
                     $longest = strlen($current);
                     $longest_value = $current;
@@ -62,7 +63,7 @@ class WordConversion
                     $longest_value = $prevent;
                     $shortest = strlen($current);
                 }
-                
+
                 if ($prevent === '0' || $current === '0') {
                     switch ($type) {
                         // and
@@ -79,7 +80,7 @@ class WordConversion
                             break;
                     }
                 }
-                
+
                 $value = array();
                 /**
                  * 加运算时需要，用来储存需要进几
@@ -99,7 +100,7 @@ class WordConversion
                  */
                 for ($i = $longest - 1; $i >= 0; $i--) {
                     $prevent_number = $prevent[$i];
-                    
+
                     switch ($type) {
                         // 与
                         case 1:
@@ -136,56 +137,56 @@ class WordConversion
                             break;
                     }
                 }
-                
+
                 ksort($value);
                 return new Word(join('', $value));
             }
         );
     }
-    
+
     /**
      * 字的与运算
      *
      * @param $params array 需要进行与运算的字列表
      *
-     * @return \SM3\types\Word
+     * @return Word
      */
     public static function andConversion($params)
     {
         return self::conversion($params, 1);
     }
-    
+
     /**
      * 字的或运算
      *
      * @param $params
      *
-     * @return \SM3\types\Word
+     * @return Word
      */
     public static function orConversion($params)
     {
         return self::conversion($params, 2);
     }
-    
+
     /**
      * 字的非运算
      *
      * @param $word
      *
-     * @return \SM3\types\Word
+     * @return Word
      */
     public static function notConversion($word)
     {
         return self::conversion(array($word, null), 4);
     }
-    
+
     /**
      * 字的左移运算
      *
      * @param $word     Word 待运算的字
      * @param $times    int 左移的位数
      *
-     * @return \SM3\types\BitString
+     * @return BitString
      */
     public static function shiftLeftConversion($word, $times)
     {
@@ -201,7 +202,7 @@ class WordConversion
             )
         );
     }
-    
+
     /**
      * 将16进制数串转换为二进制数据
      * 使用字符串形式实现，解决了PHP本身进制转换的时候受限于浮点数大小的问题
@@ -214,14 +215,14 @@ class WordConversion
     {
         // 格式化为字符串
         $hex = strval($hex);
-        
+
         /** 十六进制转二进制，每1位一组 */
         defined('HEX_TO_BIN_NUM') || define('HEX_TO_BIN_NUM', 1);
         /** @var array $hex_array 把指定的十六进制数按位切片为数组 */
         $hex_array = str_split($hex, HEX_TO_BIN_NUM);
         // 最终的二进制数字（为确保长度不丢失，使用字符串类型）
         $binary = '';
-        
+
         foreach ($hex_array as $number) {
             $bin_number = strval(base_convert($number, 16, 2));
             if (strlen($bin_number) < 4) {
@@ -229,10 +230,10 @@ class WordConversion
             }
             $binary .= $bin_number;
         }
-        
+
         return $binary;
     }
-    
+
     /**
      * 二进制转十六进制
      * @param $bin
@@ -243,30 +244,31 @@ class WordConversion
     {
         // 格式化为字符串
         $bin = strval($bin);
-        
+
         /** 二进制转十六进制，每4位一组 */
         defined('BIN_TO_HEX_NUM') || define('BIN_TO_HEX_NUM', 4);
         /** @var array $bin_array 把指定的二进制数按位切片为数组 */
         $bin_array = str_split($bin, BIN_TO_HEX_NUM);
         // 最终的二进制数字（为确保长度不丢失，使用字符串类型）
         $hex = '';
-        
+
         foreach ($bin_array as $number) {
             $hex .= strval(base_convert($number, 2, 16));
         }
-        
+
         return $hex;
     }
-    
+
     /**
      * 二进制加运算
      *
      * @param array $params
      *
-     * @return \SM3\types\Word
+     * @return Word
      */
     public static function addConversion($params)
     {
         return self::conversion($params, 5);
     }
+
 }

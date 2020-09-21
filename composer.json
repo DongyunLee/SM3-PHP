@@ -20,7 +20,8 @@
     },
     "require-dev": {
         "hirak/prestissimo": "^0.3.10",
-        "phpunit/phpunit": "~4.8"
+        "phpunit/phpunit": "~4.8",
+        "symfony/var-dumper": "^4.4"
     },
     "autoload": {
         "psr-4": {

@@ -22,6 +22,13 @@ use SM3\exceptions\validations\MessageTooLargeException;
  */
 class BitString implements ArrayAccess
 {
+    /** @var string 字符串/二进制串/比特串/比特数组 */
+    const BIT = 'bit';
+    /** @var string 字符串形式的二进制串 */
+    const BIN = 'bin';
+    /** @var string 字符串形式的十六进制串 */
+    const HEX = 'hex';
+
     /** @var string 一个比特串类型的变量 */
     protected $bit_string = '';
     /** @var string 比特串转化后的十六进制表示，人类可读，用来调试 */
@@ -29,6 +36,7 @@ class BitString implements ArrayAccess
     /** @var string 比特串转化后的二进制表示，人类可读，用来调试 */
     protected $bin_string;
     /**
+     * 二进制长度
      * @var int
      */
     protected $length;
@@ -37,24 +45,37 @@ class BitString implements ArrayAccess
      * BitString constructor.
      *
      * @param mixed $string 传入的数据
+     * @param string $type 现有字符串类型
+     *                      - bit 字符串（字节数组），包含0x/0b等表示的数据
+     *                      - bin 二进制字符串
+     *                      - hex 十六进制字符串
      * @throws InvalidArgumentException
      * @throws MessageTooLargeException
      */
-    public function __construct($string)
+    public function __construct($string, $type = self::BIT)
     {
-        // 参数验证
+        switch ($type) {
+            case self::BIN:
+                $this->bin_string = $string;
+                $this->bit_string = $this->transBinaryToString($string);
+                break;
+
+            case self::HEX:
+                $this->hex_string = $string;
+                $this->bit_string = $this->transHexToBytes($string);
+                break;
+
+            default:
+                break;
+        }
+
+        // 类型验证
         if (is_numeric($string)) {
             $string = (string)$string;
         }
 
-        if ($string instanceof Word) {
-            $string = $string->toBitString();
-            $this->bit_string = $string;
-        }
-
-        if ($string instanceof BitString) {
-            $string = $string->toString();
-            $this->bit_string = empty($string) ? $string : $this->bit_string;
+        if ($string instanceof Word || $string instanceof BitString) {
+            $string = $string->getBitString();
         }
 
         if (!is_string($string)) {
@@ -62,17 +83,100 @@ class BitString implements ArrayAccess
         }
 
         // 长度验证
-        if (strlen($string) >= pow(2,64)) {
+        if (strlen($string) >= pow(2, 64)) {
             throw new MessageTooLargeException();
         }
 
         if (empty($this->bit_string)) {
-            $this->bit_string = $this->transformToBitString($string);
+            $this->bit_string = $string;
         }
 
-        $this->hex_string = transBytesToHex($this->bit_string,' ');
-        $this->bin_string = transBytesToBin($this->bit_string,' ');
-        $this->length = strlen(transBytesToBin($this->bit_string));
+        $this->hex_string = transBytesToHex($this->bit_string);
+        $this->bin_string = $this->transBytesToBinStr($this->bit_string, ' ');
+        $this->length = strlen($this->bit_string) * 8;
+    }
+
+    /**
+     * 二进制转字符串
+     * @param $binary
+     * @param string $glue
+     * @return string|null
+     *
+     * @note 只接收空格分割字符的二进制格式
+     */
+    private function transBinaryToString($binary, $glue = '')
+    {
+        // 移除分隔符
+        if (!empty($glue)) {
+            $binary = str_replace($glue, '', $binary);
+        }
+
+        return hex2bin(base_convert($binary, 2, 16));
+    }
+
+    /**
+     * 将十六进制数转化为比特数组
+     * @param $hex
+     * @param string $glue
+     * @return string
+     */
+    private function transHexToBytes($hex, $glue = '')
+    {
+        // 移除分隔符
+        if (!empty($glue)) {
+            $hex = str_replace($glue, '', $hex);
+        }
+
+        return hex2bin($hex);
+    }
+
+    /**
+     * @return string
+     */
+    public function getBitString()
+    {
+        return $this->bit_string;
+    }
+
+    /**
+     * 将字节转化为可读的二进制数字表示
+     * @param $bytes
+     * @param string $glue
+     * @return string
+     */
+    private function transBytesToBinStr($bytes, $glue = '')
+    {
+        $bin = array();
+        for ($i = 0; $i < strlen($bytes); $i++) {
+            $byte = $bytes[$i];
+            $hex = bin2hex($byte);
+            $binary = base_convert($hex, 16, 2);
+            if (strlen((string)$binary) < 8) {
+                $bin[] = str_pad($binary, 8, '0', STR_PAD_LEFT);
+            } else {
+                $bin[] = $binary;
+            }
+        }
+
+        return join($glue, $bin);
+    }
+
+    /**
+     * 获取比特串的值
+     *
+     * @return string
+     */
+    public function toString()
+    {
+        return $this->bit_string;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHexString()
+    {
+        return $this->hex_string;
     }
 
     /**
@@ -83,78 +187,9 @@ class BitString implements ArrayAccess
         return $this->length;
     }
 
-    /**
-     * 获取比特串的值
-     *
-     * @return string
-     */
-    public function toString()
-    {
-        return $this->hex_string;
-    }
-
-    /**
-     * 字符串转比特串
-     *
-     * @param $str int|string 普通字符串
-     *
-     * @return string 转换为比特串
-     */
-    private function transformToBitString($str)
-    {
-        // 字符串转换成二进制字节数组
-        // 消息的十六进制表示
-        $hex_str = '';
-        for ($i = 0; $i < strlen($str); $i++) {
-            $v = $str[$i];
-            $hex_str .= dechex(ord($v));
-        }
-
-        // 消息的二进制字节数组表示
-        return pack('H*', $hex_str);
-    }
-
-    /**
-     * 判断是否为比特串类型
-     *
-     * @param string|BitString|Word $string
-     *
-     * @return bool
-     * @deprecated
-     */
-    public function is_bit_string($string)
-    {
-        if (is_object($string)) {
-            $string = $string->toString();
-        }
-        // 检查是否为字符串
-        if (!is_string($string)) {
-            return false;
-        }
-
-        // 检查是否为只有0和1组成的字符串
-        $array = array_filter(str_split($string));
-        foreach ($array as $value) {
-            if (!in_array(
-                $value,
-                array(
-                    0,
-                    '0',
-                    1,
-                    '1',
-                ),
-                true
-            )) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     public function __toString()
     {
-        return $this->bit_string;
+        return transBytesToHex($this->bit_string);
     }
 
     public function offsetGet($offset)
@@ -219,4 +254,75 @@ class BitString implements ArrayAccess
     {
         unset($this->bit_string[$offset]);
     }
+
+    /**
+     * 位左移运算
+     * @param $step
+     * @return BitString
+     * @throws InvalidArgumentException
+     * @throws MessageTooLargeException
+     */
+    public function shiftLeft($step)
+    {
+        $hex_result = hexdec($this->hex_string) << $step;
+        return new BitString(dechex($hex_result), self::HEX);
+    }
+
+    /**
+     * 位右移运算
+     * @param $step
+     * @return BitString
+     * @throws InvalidArgumentException
+     * @throws MessageTooLargeException
+     */
+    public function shiftRight($step)
+    {
+        $hex_result = $this->hex_string >> $step;
+        return new BitString($hex_result, self::HEX);
+    }
+
+    /**
+     * 位或运算
+     * @param $var
+     * @return BitString
+     * @throws InvalidArgumentException
+     * @throws MessageTooLargeException
+     */
+    public function inclusiveOr($var)
+    {
+        $hex_result = hexdec($this->hex_string) | $var;
+        return new BitString(dechex($hex_result), self::HEX);
+    }
+
+    /**
+     * 拼接2/10/16进制表示的字符
+     * @param $datum string|int 数据
+     * @param $convert int 进制
+     * @return BitString
+     * @throws InvalidArgumentException
+     * @throws MessageTooLargeException
+     */
+    public function glueString($datum, $convert = 10)
+    {
+        switch ($convert) {
+            case 10:
+
+                $data = $datum;
+                if (is_int($datum)) {
+                    $data = chr($datum);
+                }
+
+                break;
+            case 2:
+                $datum = base_convert($datum, 2, 16);
+            case 16:
+                $data = pack('H*', $datum);
+                break;
+            default:
+                throw new InvalidArgumentException("未预期的待拼接数据进制[${convert}]");
+        }
+        $bytes = $this->bit_string . $data;
+        return new BitString($bytes);
+    }
+
 }

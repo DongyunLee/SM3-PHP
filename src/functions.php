@@ -35,7 +35,7 @@ function sm3_or_false($message)
     try {
         $sm3 = new SM3\Sm3($message);
         return (string)$sm3;
-    } catch (ErrorException $e) {
+    } catch (\SM3\Exception $e) {
         return false;
     }
 }
@@ -147,22 +147,6 @@ function binShiftLeft($binary, $times)
 }
 
 /**
- * 将一个二进制的字符串转换为直接可读的形式
- * @param $bin_str
- */
-function displayBinary($bin_str)
-{
-}
-
-/**
- * 将一个十六进制的字符串转化为直接可读的形式
- * @param $hex_str
- */
-function displayHex($hex_str)
-{
-}
-
-/**
  * 将数字转换为字节数组
  * @param $num
  * @return string
@@ -190,39 +174,21 @@ function debugBytes($bytes, $base = 'hex')
         }
     }
     echo PHP_EOL;
-    exit();
+    return;
+    // exit();
 }
 
 /**
  * 将字节数组转化为可读的十六进制形式
  * @param string $bytes
- * @param string $glue
  * @return string
  */
-function transBytesToHex($bytes,$glue = '')
+function transBytesToHex($bytes)
 {
-    $hex = array();
-
-    for ($i = 0; $i < strlen($bytes); ++$i) {
-        $hex[] = dechex(ord($bytes[$i]));
-    }
-    return join($glue,$hex);
+    $hex_array = unpack('H*', $bytes);
+    return $hex_array[1];
 }
-/**
- * 将字节数组转化为可读的二进制形式
- * @param string $bytes
- * @param string $glue
- * @return string
- */
-function transBytesToBin($bytes,$glue = '')
-{
-    $hex = array();
 
-    for ($i = 0; $i < strlen($bytes); ++$i) {
-        $hex[] = str_pad(decbin(ord($bytes[$i])),8,'0',STR_PAD_LEFT);
-    }
-    return join($glue,$hex);
-}
 /**
  * 判断是否为大端序
  * @return bool

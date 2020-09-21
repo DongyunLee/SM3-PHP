@@ -10,6 +10,8 @@
 namespace SM3\types;
 
 use ArrayAccess;
+use SM3\exceptions\InvalidArgumentException;
+use SM3\exceptions\validations\MessageTooLargeException;
 
 /**
  * 字类型
@@ -24,53 +26,59 @@ class Word extends BitString implements ArrayAccess
     const length = 32;
     /** @var string */
     private $word = '';
-    
+
     /**
      * Word constructor.
      *
      * @param $string
      *
-     * @throws \ErrorException
+     * @throws InvalidArgumentException
+     * @throws MessageTooLargeException
      */
-    public function __construct($string)
+    public function __construct(&$string)
     {
-        parent::__construct($string);
-        
-        if (strlen($this->bit_string) === self::length) {
-            $this->word = $this->bit_string;
-        } else {
-            $this->word = intval($this->bit_string) === 0
-                ? 0
-                : $this->bit_string;
-            
-            if (strlen($this->word) <= self::length) {
-                $this->word = str_pad(
-                    $this->word,
-                    self::length,
-                    '0',
-                    STR_PAD_LEFT
-                );
-            } else {
-                $this->word = substr($this->bit_string, -(self::length));
-            }
+        if ($string instanceof BitString) {
+            $string = $string->getBitString();
         }
+
+        if (strlen($string) < self::length / 8) {
+            // 右补0
+            $diff = self::length / 8 - strlen($string);
+            $s = '';
+            for ($i = 0; $i < $diff; $i++) {
+                $s .= chr(0x00);
+            }
+            $string = '';
+        } elseif (strlen($string) > self::length / 8) {
+            // 截取指定长度
+            $s = substr($string, 0, self::length / 8);
+            $string = substr($string, self::length / 8);
+        } else {
+            $s = $string;
+            $string = '';
+        }
+
+        $string = new BitString($string);
+
+        // 从原字符串中截取指定长度，用于生成字
+        parent::__construct($s);
     }
-    
+
     public function __toString()
     {
         return $this->word;
     }
-    
+
     public function offsetGet($offset)
     {
         return $this->word[$offset];
     }
-    
+
     public function toString()
     {
         return $this->word;
     }
-    
+
     /**
      * @return string
      */
@@ -78,5 +86,5 @@ class Word extends BitString implements ArrayAccess
     {
         return $this->bit_string;
     }
-    
+
 }

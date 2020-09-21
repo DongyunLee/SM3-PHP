@@ -11,7 +11,6 @@ namespace SM3\test\types;
 
 use PHPUnit\Framework\TestCase;
 use SM3\Exception;
-use SM3\Sm3ValidationException;
 use SM3\types\BitString;
 
 class BitStringTest extends TestCase
@@ -70,7 +69,7 @@ class BitStringTest extends TestCase
     {
         try {
             $bit_string = new BitString($param);
-            $this->assertEquals($bit_string->toString(), $expect);
+            $this->assertEquals($bit_string->getHexString(), $expect);
         } catch (Exception $e) {
             $this->assertEquals($exception_msg, $e->getMessage());
         }

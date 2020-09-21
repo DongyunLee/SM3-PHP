@@ -9,23 +9,25 @@
 
 namespace SM3;
 
+use ArrayAccess;
+use SM3\types\BitString;
+
 /**
  * Class Base
  * @package SM3
  */
-abstract class Base implements \ArrayAccess
+abstract class Base implements ArrayAccess
 {
 
     /** @var string 消息(加密前的结果) */
     protected $str = '';
-    /** @var string 消息(原始字符串的二进制表示) */
+    /** @var BitString 消息(原始字符串的二进制表示) */
     protected $message = '';
     /** @var string 杂凑值(加密后的结果) */
     protected $hash_value = '';
 
     public function __construct()
     {
-
     }
 
     /**
