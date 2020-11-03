@@ -1,6 +1,6 @@
 <?php
 /**
- * WordConversionTest.php @ Sm3-PHP
+ * WordConversionTest.php @ SM3-PHP
  *
  * Code BY ch4o5
  * 11月. 25日 2019年

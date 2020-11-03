@@ -1,6 +1,6 @@
 <?php
 /**
- * Word @ Sm3-PHP
+ * Word @ SM3-PHP
  *
  * Code BY ch4o5
  * 10月. 14th 2019
@@ -16,7 +16,7 @@ use ArrayAccess;
  * 长度32的比特串
  * Class Word
  *
- * @package Sm3\types\
+ * @package SM3\types\
  */
 class Word extends BitString implements ArrayAccess
 {

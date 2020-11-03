@@ -19,7 +19,6 @@
         "php": ">=5.3.3"
     },
     "require-dev": {
-        "hirak/prestissimo": "^0.3.10",
         "phpunit/phpunit": "~4.8"
     },
     "autoload": {
@@ -68,8 +67,9 @@
             "rm -f ./composer.lock",
             "@composer clear-cache --no-interaction --ansi -vv",
             "@composer install --ignore-platform-reqs",
-            "@composer update --prefer-stable",
+            "@composer update --prefer-lowest --prefer-stable",
             "@composer validate --no-check-all --strict",
+            "@composer dump-autoload --no-interaction --ansi -vv -a --apcu --no-plugins",
             "@test"
         ],
         "test-fossa": [

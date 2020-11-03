@@ -1,13 +1,13 @@
 <?php
 /**
- * SM3Test.php @ Sm3-PHP
+ * SM3Test.php @ SM3-PHP
  *
  * Code BY ch4o5
  * 11月. 25日 2019年
  * Powered by PhpStorm
  */
 
-use SM3\Sm3;
+use SM3\SM3;
 
 require 'vendor/autoload.php';
 
@@ -29,7 +29,7 @@ class SM3Test extends PHPUnit_Framework_TestCase
     public function testSm3($source = null, $expert = null)
     {
         try {
-            $sm3 = new Sm3($source);
+            $sm3 = new SM3($source);
             $this->assertEquals($expert, $sm3);
         } catch (ErrorException $exception) {
             $this->assertEquals('参数有误', $exception->getMessage());

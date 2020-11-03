@@ -7,12 +7,12 @@
  * Powered by PhpStorm
  */
 
-use SM3\Sm3;
+use SM3\SM3;
 
 require_once 'vendor/autoload.php';
 
 // 方式二：通过实例化类，面向对象地调用
-$sm3 = new Sm3('abc');
+$sm3 = new SM3('abc');
 
 // 输出 66c7f0f462eeedd9d1f2d46bdc10e4e24167c4875cf2f7a2297da02b8f4ba8e0
 echo $sm3;
@@ -34,7 +34,7 @@ echo $sm3;
  *
  * 隐性字符串类型转换：
  * 直接作为字符串使用即可，在类的内部已经做了 __toString() 方法的重载
- * （尽管如此，在转换之前仍然是一个 Sm3 对象类型）
+ * （尽管如此，在转换之前仍然是一个 SM3 对象类型）
  */
 // assert($sm3 . '' === '66c7f0f462eeedd9d1f2d46bdc10e4e24167c4875cf2f7a2297da02b8f4ba8e0');
 

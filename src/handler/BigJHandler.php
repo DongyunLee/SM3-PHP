@@ -1,6 +1,6 @@
 <?php
 /**
- * BigJHandler @ Sm3-PHP
+ * BigJHandler @ SM3-PHP
  *
  * Code BY ch4o5
  * 10月. 14日 2019年
@@ -15,7 +15,7 @@ use SM3\libs\WordConversion;
  * 小j处理类
  * Class BigJHandler
  *
- * @package Sm3\handler
+ * @package SM3\handler
  */
 class BigJHandler extends JHandler
 {
