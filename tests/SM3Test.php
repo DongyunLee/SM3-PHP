@@ -88,4 +88,23 @@ class SM3Test extends PHPUnit_Framework_TestCase
             array()
         );
     }
+
+    public function testHmacSM3(){
+        $res = $this->hmac_sm3("source", "secret");
+        $this->assertEquals("b9ff646822f41ef647c1416fa2b8408923828abc0464af6706e18db3e8553da8", bin2hex($res));
+    }
+
+    public function hmac_sm3($data, $key, $raw_output = true)
+    {
+        $pack      = 'H' . strlen(sm3('test'));
+        $blocksize = 64;
+        if (strlen($key) > $blocksize) {
+            $key = pack($pack, sm3($key));
+        }
+        $key  = str_pad($key, $blocksize, chr(0x00));
+        $ipad = $key ^ str_repeat(chr(0x36), $blocksize);
+        $opad = $key ^ str_repeat(chr(0x5C), $blocksize);
+        $hmac = sm3($opad . pack($pack, sm3($ipad . $data)));
+        return $raw_output ? pack($pack, $hmac) : $hmac;
+    }
 }
