@@ -66,22 +66,16 @@ class BitString implements ArrayAccess
         if (is_int($str)) {
             return decbin($str);
         }
-        $tmp = '';
-        $is_binary_str = preg_match('~[^\x20-\x7E\t\r\n]~', $str) > 0;
-        if ($is_binary_str) {
-            $len = strlen($str);
-            for ($i = 0; $i < $len; $i++) {
-                $tmp .= str_pad(decbin(ord($str[$i])), 8, '0', STR_PAD_LEFT);
+        $arr = preg_split('/(?<!^)(?!$)/u', $str);
+        foreach ($arr as &$v) {
+            $temp = unpack('H*', $v);
+            $v = base_convert($temp[1], 16, 2);
+            while (strlen($v) < 8) {
+                $v = '0' . $v;
             }
-        } else {
-            $arr = preg_split('/(?<!^)(?!$)/u', $str);
-            foreach ($arr as &$v) {
-                $temp = unpack('H*', $v);
-                $tmp .= str_pad(base_convert($temp[1], 16, 2), 8, '0', STR_PAD_LEFT);
-                unset($temp);
-            }
+            unset($temp);
         }
-        return $tmp;
+        return join('', $arr);
     }
     
     /**
