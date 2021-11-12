@@ -1,0 +1,58 @@
+{
+  "header": "# 版本变更日志",
+  "types": [
+    {
+      "type": "feat",
+      "section": "新增"
+    },
+    {
+      "type": "fix",
+      "section": "修复"
+    },
+    {
+      "type": "test",
+      "section": "测试相关",
+      "hidden": true
+    },
+    {
+      "type": "build",
+      "section": "构建",
+      "hidden": true
+    },
+    {
+      "type": "ci",
+      "section": "持续集成",
+      "hidden": true
+    },
+    {
+      "type": "docs",
+      "section": "文档"
+    },
+    {
+      "type": "style",
+      "section": "代码风格"
+    },
+    {
+      "type": "refactor",
+      "section": "变更"
+    },
+    {
+      "type": "perf",
+      "section": "优化"
+    },
+    {
+      "type": "revert",
+      "section": "回退"
+    },
+    {
+      "type": "chore",
+      "section": "其他"
+    }
+  ],
+  "bumpFiles": [
+    {
+      "filename": "composer.json",
+      "type": "json"
+    }
+  ]
+}
