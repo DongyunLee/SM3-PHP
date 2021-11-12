@@ -98,5 +98,5 @@
         "ext-gmp": "delight-im/base-convert依赖，用于优化进制转换的性能",
         "delight-im/base-convert": "PHP5.6之后版本可用，用于优化进制转换的性能"
     },
-    "version": "1.1.4"
+    "version": "1.1.5"
 }

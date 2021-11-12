@@ -1,4 +1,16 @@
 # 版本变更日志
+### [1.1.5](https://github.com/DongyunLee/SM3-PHP/compare/v1.1.4...v1.1.5) (2021-11-12)
+
+
+### 回退
+
+* Revert "feat: support hmac sm3 encode (#25)" (#27) ([f155f33](https://github.com/DongyunLee/SM3-PHP/commit/f155f3337106e478a1c5396664c925a0a90bb689)), closes [#25](https://github.com/DongyunLee/SM3-PHP/issues/25) [#27](https://github.com/DongyunLee/SM3-PHP/issues/27)
+
+
+### 文档
+
+* **readme:** 更新了 travis 的徽标 ([3913b54](https://github.com/DongyunLee/SM3-PHP/commit/3913b547526342793c94e3b15aa961cdb0adf530))
+
 ### [1.1.4](https://github.com/DongyunLee/SM3-PHP/compare/v1.1.3...v1.1.4) (2021-11-12)
 
 
