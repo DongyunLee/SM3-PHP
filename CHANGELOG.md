@@ -1,3 +1,11 @@
+# 版本变更日志
+### [1.1.4](https://github.com/DongyunLee/SM3-PHP/compare/v1.1.3...v1.1.4) (2021-11-12)
+
+
+### 新增
+
+* support hmac sm3 encode ([#25](https://github.com/DongyunLee/SM3-PHP/issues/25)) ([97b9604](https://github.com/DongyunLee/SM3-PHP/commit/97b96048590f8a5512e570ff052aa42902150366))
+
 ## [v1.1.3] - 2020/11/06
 这是一个常规的稳定性更新，没有不向后兼容的变更和新特性
 > 近期原则上没有其他版本的更新计划
