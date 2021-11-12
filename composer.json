@@ -19,11 +19,14 @@
         "php": ">=5.3.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.8"
+        "hirak/prestissimo": "^0.3.10",
+        "phpunit/phpunit": "~4.8",
+        "symfony/var-dumper": "^4.4"
     },
     "autoload": {
         "psr-4": {
-            "SM3\\": "src/"
+            "SM3\\": "src/",
+            "SM3\\test\\": "tests/"
         },
         "files": [
             "src/functions.php"
@@ -67,9 +70,8 @@
             "rm -f ./composer.lock",
             "@composer clear-cache --no-interaction --ansi -vv",
             "@composer install --ignore-platform-reqs",
-            "@composer update --prefer-lowest --prefer-stable",
+            "@composer update --prefer-stable",
             "@composer validate --no-check-all --strict",
-            "@composer dump-autoload --no-interaction --ansi -vv -a --apcu --no-plugins",
             "@test"
         ],
         "test-fossa": [
@@ -77,7 +79,8 @@
             "fossa init",
             "fossa analyze"
         ],
-        "test": "vendor/bin/phpunit tests/SM3Test",
+        "test": "vendor/bin/phpunit tests/",
+        "test-dev": "vendor/bin/phpunit",
         "arch": [
             "@arch-tar",
             "@arch-zip"
@@ -95,7 +98,7 @@
     },
     "suggest": {
         "hirak/prestissimo": "可以通过并行下载，加速 composer 包的安装",
-        "ext-gmp": "delight-im/base-convert依赖，用于优化进制转换的性能",
+        "ext-gmp": "elight-im/base-convert依赖，提供对超出 PHP_INT_MAX 的数值按位运算",
         "delight-im/base-convert": "PHP5.6之后版本可用，用于优化进制转换的性能"
     }
 }

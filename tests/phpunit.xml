@@ -1,3 +1,13 @@
 <phpunit bootstrap="../vendor/autoload.php">
-
+    <testsuites>
+        <testsuite name="sm3">
+            <file>tests/SM3Test.php</file>
+        </testsuite>
+        <testsuite name="sm3_file">
+            <file>tests/Sm3FileTest.php</file>
+        </testsuite>
+        <testsuite name="all">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
 </phpunit>

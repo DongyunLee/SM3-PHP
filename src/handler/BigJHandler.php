@@ -1,6 +1,6 @@
 <?php
 /**
- * BigJHandler @ SM3-PHP
+ * BigJHandler @ Sm3-PHP
  *
  * Code BY ch4o5
  * 10月. 14日 2019年
@@ -15,7 +15,7 @@ use SM3\libs\WordConversion;
  * 小j处理类
  * Class BigJHandler
  *
- * @package SM3\handler
+ * @package Sm3\handler
  */
 class BigJHandler extends JHandler
 {
@@ -24,7 +24,7 @@ class BigJHandler extends JHandler
     /** @var int j的最小可用值 */
     const BIGGEST_J = 63;
     /** @var string T常量 */
-    const T = '7a879d8a';
+    const T = 0x7a879d8a;
     
     /**
      * 补充父类
@@ -46,6 +46,7 @@ class BigJHandler extends JHandler
      */
     public function FF($X, $Y, $Z)
     {
+        return ($X & $Y) |($X & $Z)| ($Y & $Z)  ;
         $X_and_Y = WordConversion::andConversion(array($X, $Y));
         $X_and_Z = WordConversion::andConversion(array($X, $Z));
         $Y_and_Z = WordConversion::andConversion(array($Y, $Z));
@@ -70,6 +71,7 @@ class BigJHandler extends JHandler
      */
     public function GG($X, $Y, $Z)
     {
+        return ($X & $Y) | (~$X & $Z);
         $X_and_Y = WordConversion::andConversion(array($X, $Y));
         
         $not_X = WordConversion::notConversion($X);

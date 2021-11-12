@@ -1,6 +1,6 @@
 <?php
 /**
- * bootstrap.php @ SM3-PHP
+ * bootstrap.php @ Sm3-PHP
  *
  * Code BY ch4o5
  * 11月. 25日 2019年
