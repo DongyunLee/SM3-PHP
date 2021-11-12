@@ -1,6 +1,6 @@
 <?php
 /**
- * Conversion @ SM3-PHP
+ * Conversion @ Sm3-PHP
  *
  * Code BY ch4o5
  * 10月. 14th 2019
@@ -15,7 +15,7 @@ use SM3\types\Word;
  * 字的位运算类
  * Class Conversion
  *
- * @package SM3\libs
+ * @package Sm3\libs
  */
 class WordConversion
 {
@@ -25,7 +25,7 @@ class WordConversion
      * @param $params array 需要进行异或运算的字列表
      *
      * @return \SM3\types\Word
-     * @api $value \SM3\types\Word
+     * @api $value \Sm3\types\Word
      *
      */
     public static function xorConversion($params)
