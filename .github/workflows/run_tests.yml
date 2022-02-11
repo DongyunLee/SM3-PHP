@@ -2,9 +2,9 @@ name: Run Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, dev, feat-sm3_file]
   pull_request:
-    branches: [ main ]
+    branches: [ main, dev, feat-sm3_file]
 
 jobs:
   build:
