@@ -70,7 +70,7 @@
             "@test"
         ],
         "test-fossa": [
-            "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | bash",
+            "curl -LH 'Cache-Control: no-cache' https://git.io/vpagT  | bash",
             "fossa init",
             "fossa analyze"
         ],
