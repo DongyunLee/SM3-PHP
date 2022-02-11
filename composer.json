@@ -4,6 +4,7 @@
     "type": "library",
     "license": "MPL-2.0",
     "homepage": "https://sm3.doylee.cn/",
+    "version": "1.1.5",
     "authors": [
         {
             "name": "ch4o5",
@@ -93,6 +94,5 @@
         "hirak/prestissimo": "可以通过并行下载，加速 composer 包的安装，Composer2 已经很快了，不再需要",
         "ext-gmp": "delight-im/base-convert依赖，用于优化进制转换的性能",
         "delight-im/base-convert": "PHP5.6之后版本可用，用于优化进制转换的性能"
-    },
-    "version": "1.1.4"
+    }
 }
