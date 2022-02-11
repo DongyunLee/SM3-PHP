@@ -68,7 +68,6 @@
             "@composer clear-cache --no-interaction --ansi -vv",
             "@composer install --ignore-platform-reqs",
             "@composer update --prefer-stable",
-            "@composer validate --no-check-all --strict",
             "@test"
         ],
         "test-fossa": [
