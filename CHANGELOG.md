@@ -1,4 +1,40 @@
-# 版本变更日志
+# 版本更新日志
+### [1.1.6](https://github.com/DongyunLee/SM3-PHP/compare/v1.1.4...v1.1.6) (2022-02-11)
+
+
+### ⏪ Revert | 回退
+
+* Revert "feat: support hmac sm3 encode (#25)" (#27) ([f155f33](https://github.com/DongyunLee/SM3-PHP/commit/f155f3337106e478a1c5396664c925a0a90bb689)), closes [#25](https://github.com/DongyunLee/SM3-PHP/issues/25) [#27](https://github.com/DongyunLee/SM3-PHP/issues/27)
+
+
+### ✨ Features | 新功能
+
+* **readme:** ✨ 更新徽标 ([63c4c4d](https://github.com/DongyunLee/SM3-PHP/commit/63c4c4d87d319045a6349b1bf17154051da14aff))
+
+
+### 👷 Continuous Integration | CI 配置
+
+* **composer:** 🐎 修复 composer 2 下的扩展问题 ([dc6f053](https://github.com/DongyunLee/SM3-PHP/commit/dc6f053046505d8acf6eebe98de16806970aa303))
+* **composer:** 🐎 更新composer脚本，移除验证 ([b8dd663](https://github.com/DongyunLee/SM3-PHP/commit/b8dd66363d5a9281a4da861bb2bdbea49432dd6b))
+* **composer:** 🐎 移除验证 ([2b8f922](https://github.com/DongyunLee/SM3-PHP/commit/2b8f92272b6e359914d76e82bbf539e5576b651e))
+* **fossa:** 🐎 update fossa ([2ad75de](https://github.com/DongyunLee/SM3-PHP/commit/2ad75defa608e7435091075c6e029dff87fda610))
+* **fossa:** 🐎 权限问题，暂时移除了fossa的ci ([dfa150c](https://github.com/DongyunLee/SM3-PHP/commit/dfa150c84783679c2e250b155f340aa12b24545d))
+* **github actions:** 修复php版本不生效的问题 ([86a7054](https://github.com/DongyunLee/SM3-PHP/commit/86a70543f048788533ca71d14c83ca26beb2f6a8))
+* **github actions:** 添加了更多需要触发的分支 ([532e947](https://github.com/DongyunLee/SM3-PHP/commit/532e947a6b6b47933faecc97b22ae1fa4ad232e8))
+* **github actions:** 移除了不支持的 php7.2 版本 ([6b0375d](https://github.com/DongyunLee/SM3-PHP/commit/6b0375d6d96d1c87bdc6dd4891c31615dc0568d4))
+* **GitHub Actions:** 🐎 尝试修复自动构建 ([ee0b29e](https://github.com/DongyunLee/SM3-PHP/commit/ee0b29e4ea7dd6c38b9b69fbfa7cbe1275615c7b))
+
+
+### ✏️ Documentation | 文档
+
+* **readme:** 更新了徽标 ([c8adf24](https://github.com/DongyunLee/SM3-PHP/commit/c8adf2494ad51dccd5f98e4686660fc6f9cfdbd8))
+
+
+### 📦‍ Build System | 打包构建
+
+* **composer:** 更新了版本号 ([7c2c3c6](https://github.com/DongyunLee/SM3-PHP/commit/7c2c3c6c18b8cfc4c1b2a4a61fe0007822c7afe5))
+* **version:** 初始化了版本配置 ([a50a230](https://github.com/DongyunLee/SM3-PHP/commit/a50a230c2433d03f8a2bf283b3a6f1c84641261d))
+
 ### [1.1.4](https://github.com/DongyunLee/SM3-PHP/compare/v1.1.3...v1.1.4) (2021-11-12)
 
 
