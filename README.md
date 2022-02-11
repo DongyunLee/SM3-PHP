@@ -7,8 +7,7 @@
 [![License](https://poser.pugx.org/ch4o5/sm3-php/license)](//packagist.org/packages/ch4o5/sm3-php)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDongyunLee%2FSM3-PHP.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FDongyunLee%2FSM3-PHP?ref=badge_shield)
 
-[![Build Status（Deprecated）](https://travis-ci.com/DongyunLee/SM3-PHP.svg?branch=master)](https://travis-ci.com/DongyunLee/SM3-PHP)
-[![Build Status](https://github.com/DongyunLee/SM3-PHP/actions/workflows/run_tests.yml/badge.svg?branch=main&event=workflow_run)](https://github.com/DongyunLee/SM3-PHP/actions/workflows/run_tests.yml)
+[![Run Tests](https://github.com/DongyunLee/SM3-PHP/actions/workflows/run_tests.yml/badge.svg)](https://github.com/DongyunLee/SM3-PHP/actions/workflows/run_tests.yml)
 [![Total Downloads](https://poser.pugx.org/ch4o5/sm3-php/downloads)](//packagist.org/packages/ch4o5/sm3-php)
 [![Monthly Downloads](https://poser.pugx.org/ch4o5/sm3-php/d/monthly)](//packagist.org/packages/ch4o5/sm3-php)
 
