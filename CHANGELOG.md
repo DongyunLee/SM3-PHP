@@ -2,11 +2,6 @@
 ### [1.1.6](https://github.com/DongyunLee/SM3-PHP/compare/v1.1.4...v1.1.6) (2022-02-11)
 
 
-### ⏪ Revert | 回退
-
-* Revert "feat: support hmac sm3 encode (#25)" (#27) ([f155f33](https://github.com/DongyunLee/SM3-PHP/commit/f155f3337106e478a1c5396664c925a0a90bb689)), closes [#25](https://github.com/DongyunLee/SM3-PHP/issues/25) [#27](https://github.com/DongyunLee/SM3-PHP/issues/27)
-
-
 ### ✨ Features | 新功能
 
 * **readme:** ✨ 更新徽标 ([63c4c4d](https://github.com/DongyunLee/SM3-PHP/commit/63c4c4d87d319045a6349b1bf17154051da14aff))
@@ -34,6 +29,12 @@
 
 * **composer:** 更新了版本号 ([7c2c3c6](https://github.com/DongyunLee/SM3-PHP/commit/7c2c3c6c18b8cfc4c1b2a4a61fe0007822c7afe5))
 * **version:** 初始化了版本配置 ([a50a230](https://github.com/DongyunLee/SM3-PHP/commit/a50a230c2433d03f8a2bf283b3a6f1c84641261d))
+
+
+### ⏪ Revert | 回退
+
+* Revert "feat: support hmac sm3 encode ([#25](https://github.com/DongyunLee/SM3-PHP/issues/25))" ([#27](https://github.com/DongyunLee/SM3-PHP/issues/27)) ([b8ceb0a](https://github.com/DongyunLee/SM3-PHP/commit/b8ceb0a9ada4729a97d6f667d3b3708f2182a3b8))
+* Revert "feat: support hmac sm3 encode (#25)" (#27) ([f155f33](https://github.com/DongyunLee/SM3-PHP/commit/f155f3337106e478a1c5396664c925a0a90bb689)), closes [#25](https://github.com/DongyunLee/SM3-PHP/issues/25) [#27](https://github.com/DongyunLee/SM3-PHP/issues/27)
 
 ### [1.1.4](https://github.com/DongyunLee/SM3-PHP/compare/v1.1.3...v1.1.4) (2021-11-12)
 
